@@ -1,4 +1,4 @@
-# ATtiny Flasher and ATtiny Flasher Kits hardware 
+# ESP Audio Development Kits hardware 
 
 ![Open Source Hardware](/doc/images/open-source-hardware-logo.png)
 ![Open Source Software](/doc/images/open-source-software-logo.png)

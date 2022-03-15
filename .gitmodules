@@ -31,3 +31,6 @@
 [submodule "firmware/third-party-forks/esp32-mp3-decoder"]
 	path = firmware/third-party-forks/esp32-mp3-decoder
 	url = https://github.com/anabolyc/esp32-mp3-decoder
+[submodule "firmware/third-party-forks/esp32-cspot"]
+	path = firmware/third-party-forks/esp32-cspot
+	url = https://github.com/anabolyc/esp32-cspot
