@@ -15,7 +15,39 @@ Key properties of this kit
 
 ## ESP Audio Development Features
 
-...
+MCU Core
+  - ESP32 Dual Core 32-bit LX6 microprocessor running at 240 MHz
+  - 16MB of flash storage
+  - 8MB of PSRAM
+  - CP2102 Serial communication/ Flashing chip
+
+Battery management
+  - Li-Ion battery charging with charge status indication
+  - Battery overcharge and overdischarge protection
+  - Battery overcurrent protection
+  - Onboard 14500 battery holder or 2-pin connector for external battery (except Mini version)
+  - Battery voltage reading using built-in DAC
+  - Onboard power switch
+
+Audio capabilities
+  - Dual I2S stereo DAC (MAX98537) with built in D-Class amp
+  - 3W per channel on 4 Ohm load
+  - Up to 92% efficiency
+  - Onboard 5,5V boost converter
+  
+Peripheral
+  - 2.8'' 320x240 TFT Screen with Touch sensor (except Mini version)
+  - Wifi and BT
+  - IR reader (except Mini version)
+  - RGB led, RGB LED strip header
+  - SDCard socket (except Mini version)
+  - JTAG header (except Mini version)
+  - Rotary encoder/Joystick header (except Mini version)
+
+Other
+  - RESET and GPIO0 (FLASH) buttons
+  - Raspberry Pi 4 case mechanical compatibility
+  - Software samples for every piece of onboard peripheral
 
 ## Hardware
 
@@ -27,4 +59,4 @@ Please find more information in the [firmware](/firmware) section
 
 ## Where to buy
 
-Crowd-supply campaign is being prepared
+Crowd-supply campaign is being prepared at the moment
