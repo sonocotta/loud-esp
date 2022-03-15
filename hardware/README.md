@@ -5,7 +5,7 @@
 
 This is hardware design files for ESP32 Audio Development Kit
 
-!img
+![image](https://user-images.githubusercontent.com/5459747/158466512-df669764-af58-40e1-a43f-441dc81c687c.png)
 
 ## Features
 
