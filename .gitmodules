@@ -22,3 +22,12 @@
 [submodule "firmware/third-party-forks/Ka-Radio32"]
 	path = firmware/third-party-forks/Ka-Radio32
 	url = https://github.com/anabolyc/Ka-Radio32
+[submodule "firmware/test-visual/esp32-esp8266-wifi-meaters"]
+	path = firmware/test-visual/esp32-esp8266-wifi-meaters
+	url = https://github.com/anabolyc/esp32-esp8266-wifi-meaters
+[submodule "firmware/esp-tunein-player"]
+	path = firmware/esp-tunein-player
+	url = https://github.com/sonocotta/esp-tunein-player
+[submodule "firmware/third-party-forks/esp32-mp3-decoder"]
+	path = firmware/third-party-forks/esp32-mp3-decoder
+	url = https://github.com/anabolyc/esp32-mp3-decoder
