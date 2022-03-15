@@ -3,6 +3,8 @@
 ![Open Source Hardware](/doc/images/open-source-hardware-logo.png)
 ![Open Source Software](/doc/images/open-source-software-logo.png)
 
+![image](https://user-images.githubusercontent.com/5459747/158466253-0855f9ef-9246-4e30-b53f-b1fed834d44e.png)
+
 ESP Audio Development Kits is a set of development boards designed to make audio development for ESP platform easy and feature-rich.
 
 Key properties of this kit
