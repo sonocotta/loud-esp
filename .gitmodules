@@ -1,3 +1,24 @@
 [submodule "firmware/test-audio/esp32-esp8266-wifi-radio-station"]
 	path = firmware/test-audio/esp32-esp8266-wifi-radio-station
 	url = https://github.com/anabolyc/esp32-esp8266-wifi-radio-station
+[submodule "firmware/test-visual/esp32-esp8266-weather-station"]
+	path = firmware/test-visual/esp32-esp8266-weather-station
+	url = https://github.com/anabolyc/esp32-esp8266-weather-station
+[submodule "firmware/test-visual/esp32-esp8266-weather-station-color"]
+	path = firmware/test-visual/esp32-esp8266-weather-station-color
+	url = https://github.com/anabolyc/esp32-esp8266-weather-station-color
+[submodule "firmware/test-visual/esp32-esp8266-fake-win-xp"]
+	path = firmware/test-visual/esp32-esp8266-fake-win-xp
+	url = https://github.com/anabolyc/esp32-esp8266-fake-win-xp
+[submodule "firmware/test-visual/esp32-esp8266-currency-monitor"]
+	path = firmware/test-visual/esp32-esp8266-currency-monitor
+	url = https://github.com/anabolyc/esp32-esp8266-currency-monitor
+[submodule "firmware/test-visual/esp32-esp8266-trex-game"]
+	path = firmware/test-visual/esp32-esp8266-trex-game
+	url = https://github.com/anabolyc/esp32-esp8266-trex-game
+[submodule "firmware/test-visual/esp32-spotify-screen"]
+	path = firmware/test-visual/esp32-spotify-screen
+	url = https://github.com/anabolyc/esp32-spotify-screen
+[submodule "firmware/third-party-forks/Ka-Radio32"]
+	path = firmware/third-party-forks/Ka-Radio32
+	url = https://github.com/anabolyc/Ka-Radio32
