@@ -34,3 +34,6 @@
 [submodule "firmware/third-party-forks/esp32-cspot"]
 	path = firmware/third-party-forks/esp32-cspot
 	url = https://github.com/anabolyc/esp32-cspot
+[submodule "firmware/test-visual/esp32-esp8266-screensaver"]
+	path = firmware/test-visual/esp32-esp8266-screensaver
+	url = https://github.com/sonocotta/esp32-esp8266-screensavers
