@@ -38,6 +38,7 @@ For each project please find detailed description using links below
     - [esp32-esp8266-spi-display-test](/firmware/test-visual/esp32-esp8266-spi-display-test) - TFT example using [TFT_eSPI](https://github.com/Bodmer/TFT_eSPI) library
     - [esp32-esp8266-currency-monitor](/firmware/test-visual/esp32-esp8266-currency-monitor) - adaptation of [VolosR/currency240240](https://github.com/VolosR/currency240240) repo
     - [esp32-esp8266-fake-win-xp](/firmware/test-visual/esp32-esp8266-fake-win-xp) - adaptation of [VolosR/fAKEWINESP](https://github.com/VolosR/fAKEWINESP) repo
+    - [esp32-esp8266-screensaver](/firmware/test-visual/esp32-esp8266-screensaver) - 6 classic screensavers for ESP32 with TFT or VGA output
     - [esp32-esp8266-trex-game](/firmware/test-visual/esp32-esp8266-trex-game) - adaptation of [VolosR/TRexTTGOdisplay](https://github.com/VolosR/TRexTTGOdisplay) repo
 
     - [esp32-esp8266-weather-station](/firmware/test-visual/esp32-esp8266-weather-station) - adaptation of [VolosR/TTGOWeatherStation](https://github.com/VolosR/TTGOWeatherStation) repo
