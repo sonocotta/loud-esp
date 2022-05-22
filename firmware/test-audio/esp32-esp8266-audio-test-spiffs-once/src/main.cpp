@@ -60,7 +60,7 @@ void setup()
   out = new AudioOutputI2S();
   wav = new AudioGeneratorWAV();
 
-  audio_files[0] = "/alarm.wav";
+  audio_files[0] = "/audiotest.wav";
 
   file = new AudioFileSourceSPIFFS(audio_files[seq % audio_files_length]);
   if (wav->begin(file, out))

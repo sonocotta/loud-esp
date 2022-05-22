@@ -95,7 +95,7 @@ TestDef tests[] = {
     {"TFT", "", true, "Can you see image on the screen?", false, NULL},
 #endif
 #ifdef TEST_AUDIO
-    {"AUDIO", "", true, "Can you hear bird sound?", false, NULL},
+    {"AUDIO", "", true, "Can you hear sound in both channels?", false, NULL},
 #endif
 #ifdef TEST_BATT_IN
     {"BATT UP", "", false, "", false, []()
@@ -303,7 +303,7 @@ void setup()
 #ifdef TEST_AUDIO
   Serial.print(F("Testing audio ... "));
 
-  file = new AudioFileSourceSPIFFS("/sample-2.wav");
+  file = new AudioFileSourceSPIFFS("/audiotest.wav");
   if (!wav->begin(file, out))
   {
     Serial.begin(SERIAL_BAUD);
