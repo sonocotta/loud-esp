@@ -59,4 +59,4 @@ Please find more information in the [firmware](/firmware) section
 
 ## Where to buy
 
-Crowd-supply campaign is being prepared at the moment
+[Crowd-supply campaign](https://www.crowdsupply.com/sonocotta/loud-esp) is being prepared at the moment
