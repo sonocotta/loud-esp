@@ -1,5 +1,9 @@
 #include <Arduino.h>
 #include <SD.h>
+#include <SPI.h>
+
+#define TESTONCE
+#define TESTQUICK
 
 #ifdef TFT_ENABLED
 #include "SPI.h"
@@ -142,8 +146,8 @@ void setup()
 
   delay(1000);
 
-  pinMode(PIN_SD_CS, INPUT_PULLUP);
-  pinMode(MISO, INPUT_PULLUP);
+  // pinMode(PIN_SD_CS, INPUT_PULLUP);
+  // pinMode(MISO, INPUT_PULLUP);
 }
 
 void loop(void)
@@ -153,51 +157,66 @@ void loop(void)
   tft.setCursor(0, 0);
 #endif
 
-  if (!SD.begin(PIN_SD_CS))
-  {
-    SAYLN("Card Mount Failed");
-    return;
-  }
-
 #ifdef ESP32
-  uint8_t cardType = SD.cardType();
+  SPIClass vspi(VSPI);
+  vspi.begin();
 
-  if (cardType == CARD_NONE)
-  {
-    SAYLN("No SD card attached");
-    return;
-  }
-
-  SAY("SD Card Type: ");
-  if (cardType == CARD_MMC)
-  {
-    SAYLN("MMC");
-  }
-  else if (cardType == CARD_SD)
-  {
-    SAYLN("SDSC");
-  }
-  else if (cardType == CARD_SDHC)
-  {
-    SAYLN("SDHC");
-  }
-  else
-  {
-    SAYLN("UNKNOWN");
-  }
-
-  uint64_t cardSize = SD.cardSize() / (1024 * 1024);
-  Serial.printf("SD Card Size: %lluMB\n", cardSize);
-
+  if (!SD.begin(PIN_SD_CS, vspi)) {
+#else
+  if (!SD.begin(PIN_SD_CS)) {
 #endif
+    SAYLN("Card Mount Failed");
+#ifdef TESTONCE
+    SAYLN("Test finished");
+    while (1)
+      yield();
+#else
+    return;
+#endif
+  }
 
-  // uint32_t start_time = millis();
+// #ifdef ESP32
+//   uint8_t cardType = SD.cardType();
 
-  // listDir(SD, "/", 2);
-  // readFile(SD, "/keywords.txt");
+//   if (cardType == CARD_NONE)
+//   {
+//     SAYLN("No SD card attached");
+//     return;
+//   }
 
-  // SAY("\nFinished in (ms): ");
-  // SAYLN(millis() - start_time);
+//   SAY("SD Card Type: ");
+//   if (cardType == CARD_MMC)
+//   {
+//     SAYLN("MMC");
+//   }
+//   else if (cardType == CARD_SD)
+//   {
+//     SAYLN("SDSC");
+//   }
+//   else if (cardType == CARD_SDHC)
+//   {
+//     SAYLN("SDHC");
+//   }
+//   else
+//   {
+//     SAYLN("UNKNOWN");
+//   }
+
+//   uint64_t cardSize = SD.cardSize() / (1024 * 1024);
+//   Serial.printf("SD Card Size: %lluMB\n", cardSize);
+
+// #endif
+
+#ifdef TESTQUICK
+  listDir(SD, "/", 2);
+
+  delay(1000);
+  uint32_t start_time = millis();
+  readFile(SD, "/keywords.txt");
+
+  SAY("\nFinished in (ms): ");
+  SAYLN(millis() - start_time);
+#else
 
   const char *file_hello = "/hello.txt";
 
@@ -244,6 +263,14 @@ void loop(void)
 
   Serial.printf("Read from file, %d bytes in %d ms\n", bytesRead, (int)(millis() - startTime));
   f.close();
+#endif
 
+#ifdef TESTONCE
+  SAYLN("Test finished");
+  while (1)
+    yield();
+#else
+  SAYLN("Restart in 5 seconds ... ");
   delay(5000);
+#endif
 }
