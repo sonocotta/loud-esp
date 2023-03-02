@@ -8,7 +8,7 @@
 #include <WiFi.h>
 #endif
 
-#ifdef TEST_AUDIO
+#if defined(TEST_AUDIO) || defined(TEST_SD)
 #include <SD.h>
 #ifdef ESP32
 #include "SPIFFS.h"
@@ -128,31 +128,56 @@ TestDef tests[] = {
      }},
 #endif
 #ifdef TEST_SD
-    {"SD CARD", "", false, "", false, []()
-     {
-       if (!SD.begin(TEST_SD))
-       {
-         Serial.println("Card Mount Failed");
-         return false;
-       }
+    {"SD CARD", "", false, "", false, []() {
+      if (!SD.begin(TEST_SD))
+      {
+        Serial.println("Card Mount Failed");
+        return false;
+      }
 
-       File root = SD.open("/");
-       File entry = root.openNextFile();
-       if (!entry)
-       {
-         Serial.println("Card is empty");
-         return false;
-       }
-       Serial.printf("Found file: %s (%d bytes)\n", entry.name(), entry.size());
-       return true;
+      File root = SD.open("/");
+      File entry = root.openNextFile();
+      if (!entry)
+      {
+        Serial.println("Card is empty");
+        return false;
+      }
+      Serial.printf("Found file: %s (%d bytes)\n", entry.name(), entry.size());
+      #ifdef ESP32
+      const char * path = entry.path();
+      #endif
+      #ifdef ESP8266
+      const char * path = entry.fullName();
+      #endif
+      Serial.printf("Reading file %s\n", path);
+      File f = SD.open(path, "r");
+      if (f == NULL)
+      {
+        Serial.println("Failed to open file for reading");
+        return false;
+      }
+
+      // Read a line from file
+      uint32_t bytesRead = 0;
+      uint32_t startTime = millis();
+      uint8_t line[64];
+      while (f.available())
+      {
+        f.read(line, sizeof line);
+        bytesRead += sizeof line;
+        yield();
+      }
+
+      Serial.printf("Read from file, %d bytes in %d ms\n", bytesRead, (int)(millis() - startTime));
+      f.close();
+
+      return true;
      }},
 #endif
-#ifdef TEST_PSRAM
+#ifdef ESP32
     {"PSRAM", "", false, "", false, []()
      {
-#ifdef ESP32
        Serial.printf("PSRAM: %d\n", ESP.getFreePsram());
-#endif
        char *tmp = (char *)ps_malloc(1024);
        return (tmp != 0);
      }},
