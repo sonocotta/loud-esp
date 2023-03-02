@@ -40,7 +40,7 @@ ESPSAM *sam = new ESPSAM;
 
 // #include "OneButton.h"
 // OneButton button(PIN_BTN, true, false);
-
+#ifdef USE_TFT
 void status (String statusText, uint8_t fontNum = 4, uint16_t color = TFT_LIGHTGREY, uint8_t textDatum = MC_DATUM, uint16_t x = tft.width() / 3, uint16_t y = tft.height() / 2) 
 {
     tft.fillScreen(TFT_BLACK);   
@@ -50,6 +50,12 @@ void status (String statusText, uint8_t fontNum = 4, uint16_t color = TFT_LIGHTG
     tft.setTextColor(color);
     tft.print(statusText);
 }
+#else
+void status (String statusText) 
+{
+    Serial.println(statusText);
+}
+#endif
 
 // connect WiFi -> fetch ntp packet -> disconnect Wifi
 void syncTime()
@@ -168,7 +174,11 @@ void setup()
 
         char buffer[12];
         sprintf(buffer, "%02d:%02d:%02d", tm.tm_hour, tm.tm_min, tm.tm_sec);
+        #ifdef USE_TFT
         status(buffer, 7, TFT_GREEN, BL_DATUM, tft.width() >> 3);
+        #else
+        status(buffer);
+        #endif
 
         if (tm.tm_sec == 0)
             pronounceTime();
