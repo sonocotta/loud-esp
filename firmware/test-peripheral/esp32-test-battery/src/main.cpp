@@ -17,8 +17,8 @@ TFT_eSPI tft = TFT_eSPI();
 // ADC calibration data
 #define BATT_MAX_VOLTAGE 4200
 #define BATT_MAX_ADC_VAL 2640
-#define BATT_MIN_VOLTAGE 3000
-#define BATT_MIN_ADC_VAL 4200
+#define BATT_MIN_VOLTAGE 2660
+#define BATT_MIN_ADC_VAL 1550
 
 struct BatteryVoltage {
   bool charging;
@@ -41,8 +41,8 @@ BatteryVoltage getBatteryVoltage() {
     false;
   #endif
   uint32_t adcValue = analogRead(PIN_BATT_IN);
-  uint32_t voltage = map(adcValue, 2500/**/, 2625, 4020/**/, 4160);
-  uint32_t capacity = map(voltage, BATT_MIN_VOLTAGE, BATT_MAX_VOLTAGE, 0, 100);
+  uint32_t voltage = map(adcValue, BATT_MIN_ADC_VAL, BATT_MAX_ADC_VAL, BATT_MIN_VOLTAGE, BATT_MAX_VOLTAGE);
+  uint32_t capacity = constrain(map(voltage, BATT_MIN_VOLTAGE, BATT_MAX_VOLTAGE, 0, 100), 0, 100);
   return BatteryVoltage {
     charging,
     adcValue,

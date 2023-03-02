@@ -1,5 +1,10 @@
 #include <Arduino.h>
-//#include <String.h>
+
+#ifdef USE_TFT
+#include "SPI.h"
+#include "TFT_eSPI.h"
+TFT_eSPI tft = TFT_eSPI();
+#endif
 
 #ifdef ESP32
 #include <WiFi.h>
@@ -26,16 +31,31 @@ String WD_arr[7] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Fri
 // extern "C" uint8_t sntp_getreachability(uint8_t);
 
 #include <AudioOutputI2S.h>
+#include <AudioOutputMixer.h>
 #include <ESPSAM.h>
-AudioOutputI2S *out = new AudioOutputI2S();
+AudioOutputI2S *hwout = new AudioOutputI2S();
+AudioOutputMixer *out;
+AudioOutputMixerStub *stub[1];
 ESPSAM *sam = new ESPSAM;
 
-#include "OneButton.h"
-OneButton button(PIN_BTN, true, false);
+// #include "OneButton.h"
+// OneButton button(PIN_BTN, true, false);
+
+void status (String statusText, uint8_t fontNum = 4, uint16_t color = TFT_LIGHTGREY, uint8_t textDatum = MC_DATUM, uint16_t x = tft.width() / 3, uint16_t y = tft.height() / 2) 
+{
+    tft.fillScreen(TFT_BLACK);   
+    tft.setCursor(x, y);
+    tft.setTextDatum(textDatum);
+    tft.setTextFont(fontNum);
+    tft.setTextColor(color);
+    tft.print(statusText);
+}
 
 // connect WiFi -> fetch ntp packet -> disconnect Wifi
 void syncTime()
 {
+    status("Connecting WiFi");
+
     WiFi.mode(WIFI_STA);
     // https://github.com/tzapu/WiFiManager/issues/1422
     #ifdef ARDUINO_LOLIN_C3_MINI
@@ -60,6 +80,8 @@ void syncTime()
 
     time_t now;
 
+    status("Requesting time");
+
 #ifdef ESP8266
     configTime(TIMEZONE, NTP_SERVERS);
 #endif
@@ -81,11 +103,34 @@ void syncTime()
     Serial.printf("UTC time:   %s", asctime(gmtime(&now)));    // print formated GMT/UTC time
 
     WiFi.mode(WIFI_OFF);
+
+    status("Ready");
+}
+
+void pronounceTime() {
+    sam->Say(stub[0], "Time is ");
+    sam->Say(stub[0], tm.tm_hour);
+    sam->Say(stub[0], " hours and ");
+    sam->Say(stub[0], tm.tm_min);
+    sam->Say(stub[0], " minutes");
 }
 
 void setup()
 {
     Serial.begin(SERIAL_BAUD);
+
+    #ifdef USE_TFT
+    tft.init();
+    tft.setRotation(TFT_ROTATION);
+    tft.fillScreen(TFT_BLACK);
+
+    status("Starting");
+
+    #endif
+
+    out = new AudioOutputMixer(32, hwout);
+    stub[0] = out->NewInput();
+    stub[0]->SetGain(0.2);
 
     WiFi.mode(WIFI_OFF);
 
@@ -102,37 +147,42 @@ void setup()
 
     syncTime();
 
-    button.attachClick([]() {
-        sam->Say(out, "Time is ");
-        sam->Say(out, tm.tm_hour);
-        sam->Say(out, " hours and ");
-        sam->Say(out, tm.tm_min);
-        sam->Say(out, " minutes");
-    });
+    // button.attachClick([]() {
+    //     Serial.println("Clicked");
+    //     pronounceTime();
+    // });
 
-    button.attachDoubleClick([]() {
-        sam->Say(out, "It is ");
-        sam->Say(out, WD_arr[tm.tm_wday].c_str());
-        sam->Say(out, " , ");
-        sam->Say(out, tm.tm_mday);
-        sam->Say(out, " of ");
-        sam->Say(out, M_arr[tm.tm_mon].c_str());
-    });
+    // button.attachDoubleClick([]() {
+    //     Serial.println("Double clicked");
+    //     sam->Say(stub[0], "It is ");
+    //     sam->Say(stub[0], WD_arr[tm.tm_wday].c_str());
+    //     sam->Say(stub[0], " , ");
+    //     sam->Say(stub[0], tm.tm_mday);
+    //     sam->Say(stub[0], " of ");
+    //     sam->Say(stub[0], M_arr[tm.tm_mon].c_str());
+    // });
     
     ticker0.attach_ms(1000, []() {
         time_t now = time(&now);
         localtime_r(&now, &tm);
+
+        char buffer[12];
+        sprintf(buffer, "%02d:%02d:%02d", tm.tm_hour, tm.tm_min, tm.tm_sec);
+        status(buffer, 7, TFT_GREEN, BL_DATUM, tft.width() >> 3);
+
+        if (tm.tm_sec == 0)
+            pronounceTime();
     });
 
     ticker1.attach_ms(5000, []() {
-        Serial.printf("%d:%d:%d\n", tm.tm_hour, tm.tm_min, tm.tm_sec);
+        Serial.printf("%02d:%02d:%02d\n", tm.tm_hour, tm.tm_min, tm.tm_sec);
     });
 
-    out->begin();
+    hwout->begin();
 }
 
 void loop()
 {
-    button.tick();
-    delay(10);
+    // button.tick();
+    // delay(10);
 }

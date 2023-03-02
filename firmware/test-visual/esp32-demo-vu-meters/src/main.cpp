@@ -49,8 +49,8 @@ Visualiser *visualisers[] = {
     //    new SerialVisualiser(&tft),
     //    new TextVisualiser(&tft),
     //    new BufferedVisualiser(&tft)
-    //    new DigitalVisualiser(&tft)
-    //    new AnalogVisualiser(&tft)
+    //new DigitalVisualiser(&tft)
+    //new AnalogVisualiser(&tft)
     new BarsVisualiser(&tft)
 };
 

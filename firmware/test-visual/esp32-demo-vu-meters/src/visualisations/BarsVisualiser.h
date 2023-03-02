@@ -32,7 +32,7 @@ uint16_t FFT_Offset = 0;
 
 // mode
 int16_t FFT_WorkMode = 1;
-int16_t FFT_BarMode = 3;
+int16_t FFT_BarMode = 5;
 int16_t FFT_LevelBarMode = 0; // 0=peak, 1=vu
 
 // peakAttenuation

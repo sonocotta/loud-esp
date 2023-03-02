@@ -37,3 +37,6 @@
 [submodule "firmware/test-visual/esp32-esp8266-screensaver"]
 	path = firmware/test-visual/esp32-esp8266-screensaver
 	url = https://github.com/sonocotta/esp32-esp8266-screensavers
+[submodule "firmware/third-party-forks/ESP32-MiniWebRadio"]
+	path = firmware/third-party-forks/ESP32-MiniWebRadio
+	url = https://github.com/anabolyc/ESP32-MiniWebRadio
