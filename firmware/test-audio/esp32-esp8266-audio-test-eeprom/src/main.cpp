@@ -1,11 +1,4 @@
 #include <Arduino.h>
-#ifdef ESP8266
-#include <ESP8266WiFi.h>
-#include <ESP8266HTTPClient.h>
-#endif
-#ifdef ESP32
-#include <WiFi.h>
-#endif
 #include <SD.h>
 
 #include "AudioFileSourcePROGMEM.h"
@@ -24,8 +17,6 @@ AudioOutputMixerStub *stub[2];
 
 void setup()
 {
-  WiFi.mode(WIFI_OFF);
-  
   Serial.begin(SERIAL_BAUD);
   delay(1000);
   Serial.printf("WAV start\n");
