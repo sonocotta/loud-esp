@@ -3,6 +3,10 @@
 ![Open Source Hardware](/doc/images/open-source-hardware-logo.png)
 ![Open Source Software](/doc/images/open-source-software-logo.png)
 
+________________________________________________________________________________
+[Crowd-supply campaign](https://www.crowdsupply.com/sonocotta/loud-esp) is live!
+________________________________________________________________________________
+
 ![image](https://user-images.githubusercontent.com/5459747/158466253-0855f9ef-9246-4e30-b53f-b1fed834d44e.png)
 
 ESP Audio Development Kits is a set of development boards designed to make audio development for ESP platform easy and feature-rich.
@@ -56,7 +60,3 @@ Please find more information in the [hardware](/hardware) section
 ## Firmware
 
 Please find more information in the [firmware](/firmware) section
-
-## Where to buy
-
-[Crowd-supply campaign](https://www.crowdsupply.com/sonocotta/loud-esp) is being prepared at the moment
