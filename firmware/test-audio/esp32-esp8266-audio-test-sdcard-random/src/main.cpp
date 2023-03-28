@@ -4,7 +4,8 @@
 AudioOutputI2S *out;
 
 #include <AudioGeneratorWAV.h>
-AudioGeneratorWAV *wav;
+#include <AudioGeneratorOpus.h>
+#include <AudioGeneratorMP3.h>
 
 #include "filesystem.hpp"
 FileSystem filesystem;
@@ -41,7 +42,6 @@ void setup()
   filesystem.loadFilesList();
 
   out = new AudioOutputI2S();
-  wav = new AudioGeneratorWAV();
 }
 
 void setState(State newstate)
@@ -55,18 +55,27 @@ void setState(State newstate)
 
 void loop()
 {
-  static AudioFileSource* file;
+  static FilePackage file;
+
   switch (state)
   {
-
   case ERROR:
+    // // if (file)
+    // //   free(file);
+    // // if (gen)
+    // //   free(gen);
+    // //   setState(IDLE);
+    // break;
+
   case WAIT:
     if (millis() < state_changed_at + TIME_REPEAT_AFTER)
       break;
 
   case IDLE:
-    file = filesystem.getFileByIndex(millis());
-    if (wav->begin(file, out))
+    file = filesystem.getFileByRandom();
+    Serial.printf("Opening %s\n", file.fileName.c_str());
+
+    if (file.generator->begin(file.file, out))
       setState(PLAY);
     else
     {
@@ -76,12 +85,11 @@ void loop()
     break;
 
   case PLAY:
-    if (wav->isRunning())
+    if (file.generator->isRunning())
     {
-      if (!wav->loop())
+      if (!file.generator->loop())
       {
-        wav->stop();
-        free(file);
+        file.generator->stop();
         setState(WAIT);
       }
     }

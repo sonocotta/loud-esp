@@ -18,18 +18,25 @@
 
 #define MAX_FILES_COUNT 16
 
+struct FilePackage {
+    String fileName;
+    AudioFileSource *file;
+    AudioGenerator *generator;
+};
+
 class FileSystem
 {
 private:
     uint8_t audio_files_count = 0;
-    String audio_files[MAX_FILES_COUNT];
+    FilePackage audio_files[MAX_FILES_COUNT];
+    AudioGenerator* getAudioGenerator(String fileName);
 
 public:
     FileSystem(){};
 
     bool begin();
     void loadFilesList();
-    AudioFileSource *getFileByIndex(uint8_t index);
+    FilePackage getFileByRandom();
 };
 
 bool FileSystem::begin()
@@ -41,6 +48,26 @@ bool FileSystem::begin()
 #ifdef USE_SD
     return FileSystemClass.begin(PIN_SD_CS);
 #endif
+}
+
+AudioGenerator* FileSystem::getAudioGenerator(String fileName)
+{
+  if (fileName.endsWith(".ogg"))
+  {
+    return new AudioGeneratorOpus();
+  }
+  else if (fileName.endsWith(".wav"))
+  {
+    return new AudioGeneratorWAV();
+  }
+  else if (fileName.endsWith(".mp3"))
+  {
+    return new AudioGeneratorMP3();
+  }
+  else
+  {
+    return nullptr;
+  }
 }
 
 void FileSystem::loadFilesList()
@@ -75,19 +102,28 @@ void FileSystem::loadFilesList()
             uint32_t fileSize = dir.fileSize();
 #endif
             Serial.printf("\t%s : %d bytes\n", fileName.c_str(), fileSize);
-            audio_files[files_counter] = fileName;
-            files_counter++;
+            AudioGenerator* gen = getAudioGenerator(fileName);
+            if (gen != nullptr) {
+                audio_files[files_counter] = {
+                    .fileName = fileName,
+                    .file = new AudioFileSource((
+                    #ifdef ESP32
+                        "/" +
+                    #endif
+                        fileName).c_str()),
+                    .generator = getAudioGenerator(fileName)
+                };
+                files_counter++;
+            } else {
+                Serial.printf("\t\tUnknown extenstion, skipping\n");
+            }
         }
 
         audio_files_count = files_counter;
 }
 
-AudioFileSource* FileSystem::getFileByIndex(uint8_t index)
+FilePackage FileSystem::getFileByRandom()
 {
-  String fileName = String(audio_files[index % audio_files_count]);
-  return new AudioFileSource((
-#ifdef ESP32
-    "/" +
-#endif
-    fileName).c_str());
+  uint8_t index = random(audio_files_count);
+  return audio_files[index];
 }
