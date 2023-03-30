@@ -41,7 +41,7 @@ jobs:
           - ./firmware/test-audio/esp32-esp8266-wifi-radio-station
           - ./firmware/test-audio/esp32-esp8266-audio-test-stream-web
           - ./firmware/test-audio/esp32-esp8266-audio-test-eeprom
-          # - ./firmware/test-audio/esp32-esp8266-audio-test-sdcard
+          - ./firmware/test-audio/esp32-esp8266-audio-test-sdcard-random
           - ./firmware/test-audio/esp32-esp8266-audio-test-spiffs
           - ./firmware/test-audio/esp32-esp8266-text-to-speach-sam
           - ./firmware/test-audio/esp32-esp8266-talking-clock

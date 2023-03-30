@@ -157,14 +157,7 @@ void loop(void)
   tft.setCursor(0, 0);
 #endif
 
-#ifdef ESP32
-  SPIClass vspi(VSPI);
-  vspi.begin();
-
-  if (!SD.begin(PIN_SD_CS, vspi)) {
-#else
   if (!SD.begin(PIN_SD_CS)) {
-#endif
     SAYLN("Card Mount Failed");
 #ifdef TESTONCE
     SAYLN("Test finished");
@@ -175,44 +168,44 @@ void loop(void)
 #endif
   }
 
-// #ifdef ESP32
-//   uint8_t cardType = SD.cardType();
+#ifdef ESP32
+  uint8_t cardType = SD.cardType();
 
-//   if (cardType == CARD_NONE)
-//   {
-//     SAYLN("No SD card attached");
-//     return;
-//   }
+  if (cardType == CARD_NONE)
+  {
+    SAYLN("No SD card attached");
+    return;
+  }
 
-//   SAY("SD Card Type: ");
-//   if (cardType == CARD_MMC)
-//   {
-//     SAYLN("MMC");
-//   }
-//   else if (cardType == CARD_SD)
-//   {
-//     SAYLN("SDSC");
-//   }
-//   else if (cardType == CARD_SDHC)
-//   {
-//     SAYLN("SDHC");
-//   }
-//   else
-//   {
-//     SAYLN("UNKNOWN");
-//   }
+  SAY("SD Card Type: ");
+  if (cardType == CARD_MMC)
+  {
+    SAYLN("MMC");
+  }
+  else if (cardType == CARD_SD)
+  {
+    SAYLN("SDSC");
+  }
+  else if (cardType == CARD_SDHC)
+  {
+    SAYLN("SDHC");
+  }
+  else
+  {
+    SAYLN("UNKNOWN");
+  }
 
-//   uint64_t cardSize = SD.cardSize() / (1024 * 1024);
-//   Serial.printf("SD Card Size: %lluMB\n", cardSize);
+  uint64_t cardSize = SD.cardSize() / (1024 * 1024);
+  Serial.printf("SD Card Size: %lluMB\n", cardSize);
 
-// #endif
+#endif
 
 #ifdef TESTQUICK
   listDir(SD, "/", 2);
 
   delay(1000);
   uint32_t start_time = millis();
-  readFile(SD, "/keywords.txt");
+  readFile(SD, "/foo.txt");
 
   SAY("\nFinished in (ms): ");
   SAYLN(millis() - start_time);
