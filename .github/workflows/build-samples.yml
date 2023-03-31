@@ -15,6 +15,7 @@ jobs:
         os: [ ubuntu-latest ]
         example:
           # - ./firmware/esp-tunein-player
+          - ./firmware/esp32-soundboard
           - ./firmware/test-peripheral/esp32-test-sdcard
           - ./firmware/test-peripheral/esp32-test-touch-screen
           - ./firmware/test-peripheral/esp32-esp8266-peripheral-test
