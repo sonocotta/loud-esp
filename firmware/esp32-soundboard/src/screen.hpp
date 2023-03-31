@@ -78,6 +78,9 @@ void Screen::loop()
     if (ts.tirqTouched())
     {
         TS_Point p = ts.getPoint();
+        if (p.x == 0 &&  p.y == 0)
+            return;
+            
         log_d("tch: %d, %d", p.x, p.y);
 
         tx = map(p.x, TOUCH_MIN_X, TOUCH_MAX_X, 0, BRD_COLS);
