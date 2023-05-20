@@ -20,6 +20,8 @@ jobs:
           - ./firmware/test-peripheral/esp32-test-touch-screen
           - ./firmware/test-peripheral/esp32-esp8266-peripheral-test
           - ./firmware/test-peripheral/esp32-test-touch-pins
+          - ./firmware/test-peripheral/esp32-test-sleep-by-timer
+          - ./firmware/test-peripheral/esp32-test-sleep-by-pin
           # - ./firmware/test-peripheral/esp32-arduinomenu
           # - ./firmware/test-peripheral/esp32-arduinomenu-dynamic
           - ./firmware/test-peripheral/esp32-test-battery

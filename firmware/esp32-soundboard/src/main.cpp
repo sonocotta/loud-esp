@@ -12,7 +12,8 @@ Player player(&filesystem);
 #include "screen.hpp"
 Screen screen(&filesystem, &player);
 
-void __tick_callback(){
+void __tick_callback()
+{
   player.debug();
 }
 
@@ -20,6 +21,12 @@ void setup()
 {
   Serial.begin(SERIAL_BAUD);
   log_d("Starting up...\n");
+
+#ifdef PIN_TFT_TOUCH
+  // when touch is connected but not used, drive CS high to disable it
+  pinMode(PIN_TFT_TOUCH, OUTPUT);
+  digitalWrite(PIN_TFT_TOUCH, HIGH);
+#endif
 
   if (!filesystem.begin())
   {
