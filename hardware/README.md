@@ -41,30 +41,22 @@ To hardwire DAC into MONO mode you need to cut MONO jumper (it is short by defau
 
 These boards comes in multiple revisions, normally revision of the specific board will be clearly visible on the back side of the PCB.
 
-!rev img
+![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/86b32c3e-dd69-4518-9668-39900a6002bd)
 
 Current distribution of board revisions looks like this
 
-| Revision | Audio Development Kit | Revision | Audio Development Kit Mini  |
-|----|----|----|----|
-| A |  | | |
-| B |  | | |
-| C |  | | |
-| D |  | | |
-| E |  | | |
+| Revision | Loud-ESP | Revision | Loud-ESP Mini  | Description
+|----|----|----|----|----| 
+| D | ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/7ddb571d-022a-41c2-9c8e-f08c979d7b53) | - |  | Extended PCB with built-in Rotary Encoder/ Joystick
+| E | ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/ae89a157-672c-4a27-9c29-734ca52663f4) | E | ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/433b2886-ab8b-431b-9ec1-c9aa13f1615b) | Pre-production prototype. Distributed among beta-testers
+| F | ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/bb767277-9762-48ff-bad5-bfd10ee21f27) | F | ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/5f299db2-525f-414b-b3ee-c937e3175b4c) | Crowd Supply distribution
+
+Reviosions A, B, C were early prototypes, never distributed due to multiple hardware issues
 
 ## Pin Definitions
 
-Generally pins will differ slightly from revision to revision, and will be defined in platformio.ini config file. Most essential ones are listed below
+![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/86551857-61ef-4873-a2aa-7812a9a34e7d)
 
-Each usable pin is subscribed directly on the PCB, like on exmaple below
+### How to use specific peripheral
 
-!img
-
-### ESP8266 Development Boards
-
-### ESP32 Development Boards
-
-| PIN DEF | IO | G, H | J
-|----|----|----|----|
-|  | | | |
+[esp32-esp8266-peripheral-test](../firmware/test-peripheral/esp32-esp8266-peripheral-test) firmware demonstrates how to use each of available peripheral. For may of them you would need libraries, which is also included into this example. Of couse many alternatives can be found, example will list those that are tested and work without a hustle. 
