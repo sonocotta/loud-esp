@@ -3,8 +3,6 @@
 ![Open Source Hardware](/doc/images/open-source-hardware-logo.png)
 ![Open Source Software](/doc/images/open-source-software-logo.png)
 
-...
-
 ## Introduction
 
 Most repos are [Platformio](https://platformio.org/) projects, all tested under Ubuntu 20.04 LTS. Some are [ESP IDF](https://www.espressif.com/en/products/sdks/esp-idf) projects, and would require [installation steps](https://github.com/espressif/esp-idf) before build
