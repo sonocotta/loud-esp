@@ -111,6 +111,16 @@ TestDef tests[] = {
        return (bat_value > 600) && (bat_value < 1000);
      }},
 #endif
+#ifdef TEST_BATT_CHG
+    {"BATT CHG ON", "", false, "", false, []()
+     {
+       return digitalRead(TEST_BATT_CHG) == LOW;
+     }},
+    {"BATT CHG OFF", "", false, "", false, []()
+     {
+       return digitalRead(TEST_BATT_CHG) == HIGH;
+     }},
+#endif
 #ifdef TEST_IR
     {"IR IN", "", false, "", false, []()
      {
@@ -368,6 +378,10 @@ void setup()
 
 #ifdef TEST_JOYSTICK
   pinMode(TEST_JOYSTICK_BTN, INPUT_PULLUP);
+#endif
+
+#ifdef TEST_BATT_CHG
+  pinMode(TEST_BATT_CHG, INPUT);
 #endif
 
 #ifdef TEST_ROTARY_ENC

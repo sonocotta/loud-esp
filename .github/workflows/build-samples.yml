@@ -18,7 +18,7 @@ jobs:
           - ./firmware/esp32-soundboard
           - ./firmware/test-peripheral/esp32-test-sdcard
           - ./firmware/test-peripheral/esp32-test-touch-screen
-          - ./firmware/test-peripheral/esp32-esp8266-peripheral-test
+          - ./firmware/test-peripheral/esp32-peripheral-test
           - ./firmware/test-peripheral/esp32-test-touch-pins
           - ./firmware/test-peripheral/esp32-test-sleep-by-timer
           - ./firmware/test-peripheral/esp32-test-sleep-by-pin
@@ -48,6 +48,7 @@ jobs:
           - ./firmware/test-audio/esp32-esp8266-audio-test-spiffs
           - ./firmware/test-audio/esp32-esp8266-text-to-speach-sam
           - ./firmware/test-audio/esp32-esp8266-talking-clock
+          - ./firmware/test-audio/esp32-i2s-bare
           # ./firmware/third-party-forks/squeezelite-esp32/components/spotify/cspot/bell/nanopb/examples/platformio
           # ./firmware/third-party-forks/ESP32-MiniWebRadio
           # ./firmware/third-party-forks/Ka-Radio32
