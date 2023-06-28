@@ -17,13 +17,12 @@ jobs:
           # - ./firmware/esp-tunein-player
           - ./firmware/esp32-soundboard
           - ./firmware/test-peripheral/esp32-test-sdcard
+          - ./firmware/test-peripheral/esp32-peripheral-test
           - ./firmware/test-peripheral/esp32-test-touch-screen
           - ./firmware/test-peripheral/esp32-peripheral-test
           - ./firmware/test-peripheral/esp32-test-touch-pins
           - ./firmware/test-peripheral/esp32-test-sleep-by-timer
           - ./firmware/test-peripheral/esp32-test-sleep-by-pin
-          # - ./firmware/test-peripheral/esp32-arduinomenu
-          # - ./firmware/test-peripheral/esp32-arduinomenu-dynamic
           - ./firmware/test-peripheral/esp32-test-battery
           - ./firmware/test-visual/esp32-esp8266-adafruit-spi-display-test
           # - ./firmware/test-visual/esp32-spotify-screen
@@ -31,12 +30,10 @@ jobs:
           - ./firmware/test-visual/esp32-demo-vu-meters
           - ./firmware/test-visual/esp32-esp8266-currency-monitor
           - ./firmware/test-visual/esp32-test-lvgl
-          # - ./firmware/test-visual/esp32-esp8266-screensaver
+          - ./firmware/test-visual/esp32-esp8266-screensaver
           - ./firmware/test-visual/esp32-demo-ir-volume
           - ./firmware/test-visual/esp32-esp8266-trex-game
-          # - ./firmware/test-visual/esp32-esp8266-weather-station-color
           - ./firmware/test-visual/esp32-esp8266-spi-display-test
-          # - ./firmware/test-visual/esp32-esp8266-weather-station
           - ./firmware/test-visual/esp32-demo-visualisations
           - ./firmware/test-audio/esp32-esp8266-audio-test-spiffs-once
           - ./firmware/test-audio/esp32-esp8266-audio-test-spiffs-random
