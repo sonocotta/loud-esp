@@ -87,3 +87,7 @@ build_flags =
   -D TFT_RGB_ORDER=TFT_BGR
   -D TFT_ROTATION=1
 ```
+
+### Arduino IDE
+
+Follow the [ESP8266Audio](https://github.com/earlephilhower/ESP8266Audio) library guide. Default settings will work out of the box with both Loud-ESP and Loud-ESP Mini boards. 
