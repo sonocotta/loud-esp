@@ -14,10 +14,8 @@ jobs:
       matrix:
         os: [ ubuntu-latest ]
         example:
-          # - ./firmware/esp-tunein-player
           - ./firmware/esp32-soundboard
           - ./firmware/test-peripheral/esp32-test-sdcard
-          - ./firmware/test-peripheral/esp32-peripheral-test
           - ./firmware/test-peripheral/esp32-test-touch-screen
           - ./firmware/test-peripheral/esp32-peripheral-test
           - ./firmware/test-peripheral/esp32-test-touch-pins
@@ -25,7 +23,6 @@ jobs:
           - ./firmware/test-peripheral/esp32-test-sleep-by-pin
           - ./firmware/test-peripheral/esp32-test-battery
           - ./firmware/test-visual/esp32-esp8266-adafruit-spi-display-test
-          # - ./firmware/test-visual/esp32-spotify-screen
           - ./firmware/test-visual/esp32-esp8266-fake-win-xp
           - ./firmware/test-visual/esp32-demo-vu-meters
           - ./firmware/test-visual/esp32-esp8266-currency-monitor
@@ -46,11 +43,6 @@ jobs:
           - ./firmware/test-audio/esp32-esp8266-text-to-speach-sam
           - ./firmware/test-audio/esp32-esp8266-talking-clock
           - ./firmware/test-audio/esp32-i2s-bare
-          # ./firmware/third-party-forks/squeezelite-esp32/components/spotify/cspot/bell/nanopb/examples/platformio
-          # ./firmware/third-party-forks/ESP32-MiniWebRadio
-          # ./firmware/third-party-forks/Ka-Radio32
-          # ./firmware/third-party-forks/esp32-cspot/targets/esp32
-          # ./firmware/third-party-forks/esp32-cspot/cspot/bell/nanopb/examples/platformio
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
