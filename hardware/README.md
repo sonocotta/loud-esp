@@ -59,4 +59,4 @@ Reviosions A, B, C were early prototypes, never distributed due to multiple hard
 
 ### How to use specific peripheral
 
-[esp32-esp8266-peripheral-test](../firmware/test-peripheral/esp32-esp8266-peripheral-test) firmware demonstrates how to use each of available peripheral. For may of them you would need libraries, which is also included into this example. Of couse many alternatives can be found, example will list those that are tested and work without a hustle. 
+[esp32-peripheral-test](../firmware/test-peripheral/esp32-peripheral-test) firmware demonstrates how to use each of available peripheral. For may of them you would need libraries, which is also included into this example. Of couse many alternatives can be found, example will list those that are tested and work without a hustle. 
