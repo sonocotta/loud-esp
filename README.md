@@ -1,15 +1,12 @@
-# ESP Audio Development Kits
+# Loud-ESP
 
 ![Open Source Hardware](/doc/images/open-source-hardware-logo.png)
 ![Open Source Software](/doc/images/open-source-software-logo.png)
 
-________________________________________________________________________________
-[Crowd-supply campaign](https://www.crowdsupply.com/sonocotta/loud-esp) is live!
-________________________________________________________________________________
 
 ![image](https://user-images.githubusercontent.com/5459747/158466253-0855f9ef-9246-4e30-b53f-b1fed834d44e.png)
 
-ESP Audio Development Kits is a set of development boards designed to make audio development for ESP platform easy and feature-rich.
+Loud-ESP Kits is a set of development boards designed to make audio development for ESP platform easy and feature-rich.
 
 Key properties of this kit
 - It uses ESP chips as a MCU core, which has huge community support and adaptation
@@ -17,7 +14,7 @@ Key properties of this kit
 - It has low power consumption and built-in Li-Ion battery management - therefore it is a good choice for any sort of a portable and wearable audio projects.
 - It has a rich UX peripheral, most obviously FTF screen with touch, but also IR receiver, and header for physical controls, like rotary encoder or joystick. Therefore it is a good choice for standalone user-facing audio projects.
 
-## ESP Audio Development Features
+## Loud-ESP Features
 
 MCU Core
   - ESP32 Dual Core 32-bit LX6 microprocessor running at 240 MHz
