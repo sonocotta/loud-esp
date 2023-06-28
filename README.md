@@ -34,7 +34,7 @@ Audio capabilities
   - Dual I2S stereo DAC (MAX98537) with built in D-Class amp
   - 3W per channel on 4 Ohm load
   - Up to 92% efficiency
-  - Onboard 5,5V boost converter
+  - Onboard 5V boost converter
   
 Peripheral
   - 2.8'' 320x240 TFT Screen with Touch sensor (except Mini version)
