@@ -57,6 +57,37 @@ Reviosions A, B, C were early prototypes, never distributed due to multiple hard
 
 ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/86551857-61ef-4873-a2aa-7812a9a34e7d)
 
+### Pin usage summary
+
+| PIN  | PRIMARY FUNC | JTAG | I2S  | TOUCH | TFT     | TOUCH_TFT | RGB_LED | BAT    | IR    | SDCARD | ROTARY ENC/ BTN INP | PSRAM     |    | OUT       | IN     |                            |
+|------|--------------|------|------|-------|---------|-----------|---------|--------|-------|--------|---------------------|-----------|----|-----------|--------|----------------------------|
+| IO0  | BOOT SEL     |      |      | T1    |         |           |         |        | IR_IN |        |                     |           | 0  | pulled up | OK     | outputs PWM signal at boot |
+| IO1  | TX           |      |      |       |         |           |         |        |       |        |                     |           | 1  | TX pin    | OK     | debug output at boot       |
+| IO2  |              |      |      | T2    |         | CS        |         |        |       |        |                     |           | 2  | OK        | OK     | connected to on-board LED  |
+| IO3  | RX           |      |      |       |         |           |         |        |       |        |                     |           | 3  | OK        | RX pin | HIGH at boot               |
+| IO4  |              |      |      | T0    | DC      |           |         |        |       |        |                     |           | 4  | OK        | OK     |                            |
+| IO5  | VSPI_CS      |      |      |       | CS      |           |         |        |       |        |                     |           | 5  | OK        | OK     | outputs PWM signal at boot |
+| IO12 | HSPI_MISO    | MTDI |      | T5    |         |           |         |        |       |        |                     |           | 12 | OK        | OK     | boot fail if pulled high   |
+| IO13 | HSPI_MOSI    | MTCK |      | T4    |         |           |         |        |       |        |                     |           | 13 | OK        | OK     |                            |
+| IO14 | HSPI_CLK     | MTMS |      | T6    |         |           |         |        |       |        |                     |           | 14 | OK        | OK     | outputs PWM signal at boot |
+| IO15 | HSPI_CS      | MTDO |      | T3    |         |           |         |        |       |        |                     |           | 15 | OK        | OK     | outputs PWM signal at boot |
+| IO16 |              |      |      |       |         |           |         |        |       |        |                     | PSRAM_CS  | 16 | OK        | OK     |                            |
+| IO17 |              |      |      |       |         |           |         |        |       |        |                     | PSRAM_CLK | 17 | OK        | OK     |                            |
+| IO18 | VSPI_CLK     |      |      |       | CLK     | CLK       |         |        |       | CLK    |                     |           | 18 | OK        | OK     |                            |
+| IO19 | VSPI_MISO    |      |      |       | MISO    | MISO      |         |        |       | MISO   |                     |           | 19 | OK        | OK     |                            |
+| IO21 |              |      |      |       |         |           |         | CHRG   |       |        |                     |           | 21 | OK        | OK     |                            |
+| IO22 |              |      | DATA |       |         |           |         |        |       |        |                     |           | 22 | OK        | OK     |                            |
+| IO23 | VSPI_MOSI    |      |      |       | MOSI    | MOSI      |         |        |       | MOSI   |                     |           | 23 | OK        | OK     |                            |
+| IO25 |              |      | WS   |       |         |           |         |        |       |        |                     |           | 25 | OK        | OK     |                            |
+| IO26 |              |      | CLK  |       |         |           |         |        |       |        |                     |           | 26 | OK        | OK     |                            |
+| IO27 |              |      |      | T7    |         |           |         |        |       | CS     |                     |           | 27 | OK        | OK     |                            |
+| IO32 |              |      |      | T9    | RES/LED |           |         |        |       |        |                     |           | 32 | OK        | OK     |                            |
+| IO33 |              |      |      | T8    |         |           | OUT     |        |       |        |                     |           | 33 | OK        | OK     |                            |
+| IO34 |              |      |      |       |         |           |         | BAT_IN |       |        |                     |           | 34 | OK        |        | input only                 |
+| IO35 |              |      |      |       |         |           |         |        |       |        | A                   |           | 35 | OK        |        | input only                 |
+| IO36 |              |      |      |       |         |           |         |        |       |        | B                   |           | 36 | OK        |        | input only                 |
+| IO39 |              |      |      |       |         |           |         |        |       |        | BTN                 |           | 39 | OK        |        | input only                 |
+
 ### How to use specific peripheral
 
 [esp32-peripheral-test](../firmware/test-peripheral/esp32-peripheral-test) firmware demonstrates how to use each of available peripheral. For may of them you would need libraries, which is also included into this example. Of couse many alternatives can be found, example will list those that are tested and work without a hustle. 
