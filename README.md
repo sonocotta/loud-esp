@@ -12,7 +12,7 @@ Key properties of this kit
 - It uses ESP chips as an MCU core, which has huge community support and adaptation
 - It delivers 2-channel amplified high-quality audio ready to be connected to speakers of choice - no need to have an external amplifier. Therefore it is all you need to complete your audio projects
 - It has low power consumption and built-in Li-Ion battery management - therefore it is a good choice for any sort of portable and wearable audio projects.
-- It has a rich UX peripheral, most obviously TFT screen with touch, but also an IR receiver, and header for physical controls, like a rotary encoder or joystick. Therefore it is a good choice for standalone user-facing audio projects.
+- It has a rich UX peripheral, most obviously a TFT screen with touch, but also an IR receiver, and header for physical controls, like a rotary encoder or joystick. Therefore it is a good choice for standalone user-facing audio projects.
 
 ## Loud-ESP Features
 
@@ -83,7 +83,7 @@ And LMS itself
 - LMS can be extended by numerous plugins and can be controlled using a Web browser or dedicated applications (iPhone, Android).
 - It can also send audio to UPnP, Sonos, Chromecast, and AirPlay speakers/devices.
 
-All ESP32-based boards are tested with [Squeezelite-ESP32](https://github.com/sle118/squeezelite-esp32) software, which can be flashed using nothing but web-browser. You can use [Squeezelite-ESP32 installer](https://sonocotta.github.io/esp32-audio-dock/) for that purpose.
+All ESP32-based boards are tested with [Squeezelite-ESP32](https://github.com/sle118/squeezelite-esp32) software, which can be flashed using nothing but web browser. You can use [Squeezelite-ESP32 installer](https://sonocotta.github.io/esp32-audio-dock/) for that purpose.
 
 
 ### How to flash and configure
@@ -97,7 +97,7 @@ Use [Installer for ESP Audio Dock](https://sonocotta.github.io/esp32-audio-dock/
 | Press `Flash` and wait around 2 minutes  | ![image](https://github.com/sonocotta/loud-esp/assets/5459747/c4ecec9d-5117-4dab-87ea-864a94fce609)
 | (Optional) You may enter the serial console to get more information | ![image](https://github.com/sonocotta/esp32-audio-dock/assets/5459747/89832ed4-4314-486f-b6a3-66efb46d3587)
 | Device is in recovery mode. Connect to `squeezelite-299fac` wifi network with `squeezelite` password (your network name suffix will be different) | ![image](https://github.com/sonocotta/esp32-audio-dock/assets/5459747/2763663c-dbc9-4c71-af12-0a6fb9c2d94d) |
-| When redirected to captive portal let device scan wifi network and provide valid credentials | <img src="https://github.com/sonocotta/esp32-audio-dock/assets/5459747/d2540ffb-d1d1-4441-a2b1-bbd6b8ad608f" width="30%" /> <img src="https://github.com/sonocotta/esp32-audio-dock/assets/5459747/b21f30e6-8899-46bc-b047-23281cae52b8" width="30%" /> <img src="https://github.com/sonocotta/esp32-audio-dock/assets/5459747/5dd1a1f6-0c6d-4045-b135-1d8cdd077161" width="30%" /> |
+| When redirected to the captive portal let the device scan wifi network and provide valid credentials | <img src="https://github.com/sonocotta/esp32-audio-dock/assets/5459747/d2540ffb-d1d1-4441-a2b1-bbd6b8ad608f" width="30%" /> <img src="https://github.com/sonocotta/esp32-audio-dock/assets/5459747/b21f30e6-8899-46bc-b047-23281cae52b8" width="30%" /> <img src="https://github.com/sonocotta/esp32-audio-dock/assets/5459747/5dd1a1f6-0c6d-4045-b135-1d8cdd077161" width="30%" /> |
 | You can use provided IP address (http://192.168.1.99/ on the screenshot) to access settings page |  ![image](https://github.com/sonocotta/esp32-audio-dock/assets/5459747/e3bbf910-1a5c-4c58-bd4e-c348ef0a91e5)
 | (Optional) You may change device names to something close to your heart| ![image](https://github.com/sonocotta/esp32-audio-dock/assets/5459747/962c2ced-c7c4-4a8a-b58f-72ad2f1f6b94)
 | Exit recovery | ![image](https://github.com/sonocotta/esp32-audio-dock/assets/5459747/0fa0bab1-c225-47c7-ab26-29d9eb98ffcf)
@@ -110,4 +110,4 @@ You can use it now
 
 ## Where to buy
 
-You may support our work by ordering this product at [Tindie](https://www.tindie.com/products/sonocotta/loud-esp/)
+You may support our work by ordering this product at [Tindie](https://www.tindie.com/products/sonocotta/loud-esp/) and [Elecrow](https://www.elecrow.com/loud-esp.html)
