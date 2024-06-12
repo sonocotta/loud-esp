@@ -1,0 +1,491 @@
+substitutions:
+  name: esphome-web-172074
+  friendly_name: logitech-purefi-screen
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  name_add_mac_suffix: false
+  project:
+    name: esphome.web
+    version: '1.0'
+  on_boot:
+    priority: 800
+    then:
+    - media_player.volume_set:
+        id: loudesp
+        volume: 60%
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+  level: DEBUG
+
+# Enable Home Assistant API
+api:
+
+# Allow Over-The-Air updates
+ota:
+  password: !secret esphome_ota_password
+
+wifi:
+  ssid: !secret esphome_wifi_ssid
+  password: !secret esphome_wifi_password
+  ap:
+    ssid: "$name Hotspot"
+    password: !secret esphome_ap_password
+
+captive_portal:
+
+psram:
+  mode: octal
+  speed: 80MHz
+
+i2s_audio:
+  i2s_lrclk_pin: GPIO25
+  i2s_bclk_pin: GPIO26
+
+media_player:
+  - platform: i2s_audio
+    name: $friendly_name
+    id: loudesp
+    dac_type: external
+    i2s_dout_pin: GPIO22
+    mode: stereo
+    on_play: 
+      then:
+        - light.addressable_set: 
+            id: rgb_light
+            red: 0
+            green: 10%
+            blue: 0
+    on_idle: 
+      then:
+        - light.addressable_set: 
+            id: rgb_light
+            red: 10%
+            green: 0
+            blue: 0
+
+remote_receiver:
+  pin: 
+    number: GPIO0
+    inverted: true
+    mode:
+      input: true
+  dump: samsung
+  on_samsung:
+    then:
+    - if:
+        condition:
+          - lambda: 'return (x.data == 0xE0E036C9);'
+        then:
+          - logger.log: "IR remote: Play / Pause"
+          - homeassistant.service:
+              service: script.mopidy_play_pause
+    - if:
+        condition:
+          - lambda: 'return (x.data == 0xE0E028D7);'
+        then:
+          - logger.log: "IR remote: Stop"
+          - homeassistant.service:
+              service: script.mopidy_stop
+    - if:
+        condition:
+          - lambda: 'return (x.data == 0xE0E0A857);'
+        then:
+          - logger.log: "IR remote: Volume Down"
+          - homeassistant.service:
+              service: script.mopidy_volume_down
+    - if:
+        condition:
+          - lambda: 'return (x.data == 0xE0E06897);'
+        then:
+          - logger.log: "IR remote: Volume Up"
+          - homeassistant.service:
+              service: script.mopidy_volume_up
+
+
+switch:
+  - platform: restart
+    name: "$friendly_name restart"
+  - platform: shutdown
+    name: "$friendly_name shutdown"
+  - platform: safe_mode
+    name: "$friendly_name restart (Safe Mode)"
+
+color:
+  - id: aux_text_color
+    red: 80%
+    green: 80%
+    blue: 80%
+
+  - id: muted_text_color
+    red: 30%
+    green: 30%
+    blue: 30%
+
+  - id: text_color
+    red: 20%
+    green: 90%
+    blue: 90%
+
+  - id: water_color
+    red_int: 52
+    green_int: 195
+    blue_int: 235
+
+  - id: sun_color
+    red_int: 235
+    green_int: 195
+    blue_int: 52
+
+  - id: leaf_color
+    red_int: 195
+    green_int: 235
+    blue_int: 52
+
+  - id: greenish_color
+    red_int: 52
+    green_int: 235
+    blue_int: 195
+
+  - id: sunset_color
+    red_int: 235
+    green_int: 137
+    blue_int: 52
+
+  - id: night_color
+    red_int: 52
+    green_int: 52
+    blue_int: 235
+
+image:
+  - file: mdi:play-circle
+    id: mdi_play
+    resize: 80x80
+
+  - file: mdi:stop-circle
+    id: mdi_stop
+    resize: 80x80
+
+  - file: mdi:pause-circle
+    id: mdi_pause
+    resize: 80x80
+
+  - file: mdi:skip-next
+    id: mdi_next
+    resize: 80x80
+
+  - file: mdi:skip-previous
+    id: mdi_prev
+    resize: 80x80
+
+  - file: mdi:volume-minus
+    id: mdi_volume_minus
+    resize: 40x40
+
+  - file: mdi:volume-plus
+    id: mdi_volume_plus
+    resize: 40x40
+
+font:
+  - file:
+      type: gfonts
+      family: Roboto+Mono
+      weight: thin
+    id: roboto_thin
+    size: 96
+    glyphs: &text-glyphs
+      ['&', '@', '!', ',', '.', '"', '%', '(', ')', '+', '-', '_', ':', '°', '0',
+       '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
+       'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+       'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
+       'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+       'u', 'v', 'w', 'x', 'y', 'z','å', 'ä', 'ö', '/','º','µ','³','''']
+
+  - file:
+      type: gfonts
+      family: Roboto+Mono
+      weight: regular
+    id: roboto_thick
+    size: 96
+    glyphs: *text-glyphs
+
+  - file:
+      type: gfonts
+      family: Roboto+Mono
+      weight: thin
+    id: roboto_thin_32
+    size: 32
+    glyphs: *text-glyphs
+
+  - file:
+      type: gfonts
+      family: Roboto+Mono
+      weight: thin
+    id: roboto_thin_24
+    size: 24
+    glyphs: *text-glyphs
+
+  - file:
+      type: gfonts
+      family: Roboto+Mono
+      weight: thin
+    id: roboto_thin_16
+    size: 16
+    glyphs: *text-glyphs
+
+time:
+  - platform: sntp
+    id: esptime
+            
+spi:
+    clk_pin: GPIO18
+    mosi_pin: GPIO23
+    miso_pin: GPIO19
+
+touchscreen:
+  platform: xpt2046
+  cs_pin: GPIO2
+  interrupt_pin: GPIO21
+  update_interval: 50ms
+  threshold: 400
+  calibration:
+    x_min: 280
+    x_max: 3860
+    y_max: 340
+    y_min: 3860
+  transform:
+    swap_xy: false   
+    # mirror_x: true
+    # mirror_y: true
+  on_touch: 
+    - lambda: |-
+        for (auto touch: touches)  {
+            if (touch.state <= 2) {
+                ESP_LOGI("Touch points:", "id=%d x=%d, y=%d", touch.id, touch.x, touch.y);
+            }
+        }
+
+light:
+  - platform: esp32_rmt_led_strip
+    id: rgb_light
+    rgb_order: GRB
+    pin: GPIO33
+    num_leds: 1
+    rmt_channel: 1
+    chipset: ws2812
+    name: "RGB led"
+
+binary_sensor:
+  - platform: touchscreen
+    id: touch_prev_track
+    x_min: 0
+    x_max: 80
+    y_min: 220
+    y_max: 300
+    on_press:
+    - logger.log: "Prev Track touched"
+    - homeassistant.service:
+        service: script.mopidy_prev_track
+
+  - platform: touchscreen
+    id: touch_play_pause
+    x_min: 80
+    x_max: 160
+    y_min: 220
+    y_max: 300
+    on_press:
+    - logger.log: "Play Pause touched"
+    - homeassistant.service:
+        service: script.mopidy_play_pause
+
+  - platform: touchscreen
+    id: touch_next_track
+    x_min: 160
+    x_max: 240
+    y_min: 220
+    y_max: 300
+    on_press:
+    - logger.log: "Next Track touched"
+    - homeassistant.service:
+        service: script.mopidy_next_track
+
+  - platform: touchscreen
+    id: touch_volume_minus
+    x_min: 0
+    x_max: 40
+    y_min: 0
+    y_max: 40
+    on_press:
+    - logger.log: "Volume Down touched"
+    - homeassistant.service:
+        service: script.mopidy_volume_down
+
+  - platform: touchscreen
+    id: touch_volume_plus
+    x_min: 200
+    x_max: 240
+    y_min: 0
+    y_max: 40
+    on_press:
+    - logger.log: "Volume Up touched"
+    - homeassistant.service:
+        service: script.mopidy_volume_up
+
+sensor:
+  - platform: homeassistant
+    entity_id: media_player.mopidy
+    id: mopidy_volume
+    attribute: volume_level
+
+  - platform: homeassistant
+    entity_id: media_player.mopidy
+    id: mopidy_media_position
+    attribute: media_position
+
+  - platform: homeassistant
+    entity_id: media_player.mopidy
+    id: mopidy_media_duration
+    attribute: media_duration
+
+text_sensor:
+  - platform: homeassistant
+    entity_id: media_player.mopidy
+    id: mopidy_state
+
+  - platform: homeassistant
+    entity_id: media_player.mopidy
+    id: mopidy_title
+    attribute: media_title
+
+  - platform: homeassistant
+    entity_id: media_player.mopidy
+    id: mopidy_artist
+    attribute: media_artist
+
+  - platform: homeassistant
+    entity_id: media_player.mopidy
+    id: mopidy_picture
+    attribute: entity_picture
+
+  - platform: homeassistant
+    entity_id: media_player.mopidy
+    id: mopidy_queue_position
+    attribute: queue_position
+
+  - platform: homeassistant
+    entity_id: media_player.mopidy
+    id: mopidy_queue_size
+    attribute: queue_size
+
+display:
+  - platform: ili9xxx
+    id: tft_display
+    model: ILI9341
+    dimensions:
+      width: 240
+      height: 320
+      offset_height: 0
+      offset_width: 0
+    invert_colors: false
+    dc_pin: GPIO04
+    reset_pin: GPIO32
+    cs_pin: GPIO05
+    rotation: 180
+    update_interval: 1s
+    lambda: |-
+      it.fill(id(Color::BLACK));
+
+      ESP_LOGI("display", "mopidy_state: %s", id(mopidy_state).state.c_str());
+      ESP_LOGI("display", "mopidy_artist: %s", id(mopidy_artist).state.c_str());
+      ESP_LOGI("display", "mopidy_title: %s", id(mopidy_title).state.c_str());
+      ESP_LOGI("display", "mopidy_picture: %s", id(mopidy_picture).state.c_str());
+      ESP_LOGI("display", "mopidy_volume: %2.1f", id(mopidy_volume).state);
+      ESP_LOGI("display", "queue: %s of %s", id(mopidy_queue_position).state.c_str(), id(mopidy_queue_size).state.c_str());
+      ESP_LOGI("display", "position: %2.1f of %2.1f", id(mopidy_media_position).state, id(mopidy_media_duration).state); 
+
+      // volume indicator
+      if (id(mopidy_volume).has_state()) {
+        it.line(40, 20, 240 - 40, 20, id(muted_text_color));
+        it.image(0, 0, id(mdi_volume_minus), id(muted_text_color));
+        it.image(240 - 40, 0, id(mdi_volume_plus), id(muted_text_color));
+        
+        int position = (240 - 40 - 40) * id(mopidy_volume).state;
+        it.filled_circle(40 + position, 20, 5, id(greenish_color));
+      }
+      
+      // artist and title
+      if (id(mopidy_title).has_state())
+        it.printf(120, 180 - 20, id(roboto_thin_16), id(greenish_color), TextAlign::BOTTOM_CENTER, "%s", id(mopidy_title).state.c_str());
+      if (id(mopidy_artist).has_state())
+        it.printf(120, 180 - 20, id(roboto_thin_32), id(sun_color), TextAlign::TOP_CENTER, "%s", id(mopidy_artist).state.c_str());
+
+      // control buttons
+      auto image_baseline_x = 120 - 40;  
+      auto image_baseline_y = 320 - 100;  
+
+      if (id(mopidy_state).has_state()) {
+        if (id(mopidy_state).state == "playing") {
+          it.image(image_baseline_x, image_baseline_y, id(mdi_pause), id(aux_text_color));
+        } else {
+          it.image(image_baseline_x, image_baseline_y, id(mdi_play), id(aux_text_color));
+        }
+
+        it.image(image_baseline_x - 80, image_baseline_y, id(mdi_prev), id(aux_text_color));
+        it.image(image_baseline_x + 80, image_baseline_y, id(mdi_next), id(aux_text_color));
+      }
+
+      // playlist position
+      if (id(mopidy_queue_position).has_state()) {
+        auto queue_position = atoi(id(mopidy_queue_position).state.c_str());
+        auto queue_size = atoi(id(mopidy_queue_size).state.c_str());
+        // it.printf(120, 320, id(roboto_thin_16), id(water_color), TextAlign::BOTTOM_CENTER, "queue: %d of %s", queue_position + 1, id(mopidy_queue_size).state.c_str());
+        if (queue_size == 1) {
+          it.filled_circle(120, 320 - 10, 3, id(greenish_color));
+        } else {
+          auto distance = (240 - 20) / (queue_size - 1);
+          for (auto i = 0; i < queue_size; i++) {
+            it.filled_circle(10 + distance * i, 320 - 10, 3, i == queue_position ? id(greenish_color) : id(muted_text_color));
+          }
+        }
+      }
+
+      // media indicator
+      if (id(mopidy_media_duration).has_state()) {
+        auto baseline_y = 320 - 80 - 20; 
+        it.line(10, baseline_y, 240 - 10, baseline_y, id(muted_text_color));
+        
+        float media_position =  id(mopidy_media_position).state / id(mopidy_media_duration).state;
+        int position = (240 - 10 - 10) * media_position;
+        it.filled_circle(10 + position, baseline_y, 3, id(greenish_color));
+      }
+
+      // color
+      auto colorFunc = [](int seq) -> int {
+        seq = seq % 0xff;
+        if (seq < 85)
+          return seq * 3;
+        else if (seq < 170)
+          return 255 - (seq - 85) * 3;
+        return 0;
+      };
+      auto seq = id(esptime).now().timestamp;
+      auto r = colorFunc(seq), g = colorFunc(seq + 85), b = colorFunc(seq + 170);
+      auto textColor = Color(r, g, b);
+      //ESP_LOGI("display", "color: seq=%d, r=%d, g=%d, b=%d", seq, r, g, b);
+
+      // clock
+      auto hours = id(esptime).now().hour;
+      auto minutes = id(esptime).now().minute;
+      auto seconds = id(esptime).now().second;
+
+      if (seconds % 2 == 0)
+        it.printf(120, 40 - 20, id(roboto_thin), textColor, TextAlign::TOP_CENTER, "%s", ".");
+      it.printf(110, 40 - 20, id(roboto_thick), textColor, TextAlign::TOP_RIGHT, "%d", hours);
+      it.printf(130, 40 - 20, id(roboto_thick), textColor, TextAlign::TOP_LEFT, "%02d", minutes);

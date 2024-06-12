@@ -1,4 +1,4 @@
-# Loud-ESP
+# Loud-ESP development board
 
 ![Open Source Hardware](/doc/images/open-source-hardware-logo.png)
 ![Open Source Software](/doc/images/open-source-software-logo.png)
@@ -7,6 +7,23 @@
 [![Dev Chat](https://img.shields.io/discord/1233306441469657140?logo=discord&label=discord&style=flat-square)](https://discord.gg/PtnaAaQMpS)
 
 ![image](https://user-images.githubusercontent.com/5459747/158466253-0855f9ef-9246-4e30-b53f-b1fed834d44e.png)
+
+- [Loud-ESP development board](#loud-esp-development-board)
+  - [Loud-ESP Features](#loud-esp-features)
+- [Hardware](#hardware)
+- [Firmware](#firmware)
+  - [Software samples](#software-samples)
+    - [Platformio IDE](#platformio-ide)
+  - [Arduino IDE](#arduino-ide)
+  - [ESPHome and Home Assistant](#esphome-and-home-assistant)
+    - [Loud ESP Mini and Full version](#loud-esp-mini-and-full-version)
+    - [Loud ESP Full version only](#loud-esp-full-version-only)
+    - [Project example - Mopidy monitor](#project-example---mopidy-monitor)
+    - [Bonus - automation example](#bonus---automation-example)
+  - [Squeezelite-ESP32](#squeezelite-esp32)
+    - [How to flash and configure](#how-to-flash-and-configure)
+  - [Where to buy](#where-to-buy)
+
 
 Loud-ESP Kits is a set of development boards designed to make audio development for the ESP platform easy and feature-rich.
 
@@ -52,14 +69,11 @@ Other
   - Raspberry Pi 4 case mechanical compatibility
   - Software samples for every piece of onboard peripheral
 
-## Hardware
+# Hardware
 
 Please find more information in the [hardware](/hardware) section
 
-## Firmware
-
-
-
+# Firmware
 
 ## Software samples
 
@@ -72,6 +86,60 @@ All samples are provided as [Plarformio IDE](https://platformio.org/platformio-i
 ## Arduino IDE
 
 Follow the [ESP8266Audio](https://github.com/earlephilhower/ESP8266Audio) library guide. Default settings will work out of the box with ESP8266 and ESP32 boards. For ESP32C3 and ESP32S2 board please adjust pinout according to the above section
+
+## ESPHome and Home Assistant
+
+Being an ESP32-based device, you can easily integrate it into your Home Assistant using ESPHome. Start with [esphome web installer](https://web.esphome.io/), which will give you ESPHome base install and WiFi configuration in minutes. 
+
+|   |   |
+|----|----|
+| ![image](https://github.com/sonocotta/esp32-audio-dock/assets/5459747/abde451b-5619-4b32-a024-3f680999567f) | ![image](https://github.com/sonocotta/esp32-audio-dock/assets/5459747/fc567914-0d0a-4402-a5c5-ddfad77f2b83) |
+
+
+Next, navigate to your Home Assistant (assuming you have your [ESPHome integration](https://esphome.io/guides/getting_started_hassio.html) installed), and adopt the newly created node
+
+![image](https://github.com/sonocotta/esp32-audio-dock/assets/5459747/299fb7ab-003e-4259-b0c1-9d13dd3e54ba)
+
+[ESPHome](/firmware/esphome/) will give you ESPHome configs for both the mini and full versions of the board.
+
+### Loud ESP Mini and Full version
+
+The [loud-esp-mini](/firmware/esphome/loud-esp-mini.yaml) config enables common board peripheral
+
+- `media_player` publishes the media player into the Home assistant, so you can use it together with the native player or Music Assistant. You have a volume knob in the HA as well.
+- ![image](https://github.com/sonocotta/esp32-audio-dock/assets/5459747/f73a7347-672f-4dfc-afb8-35c7eb78e464)
+- Volume set up to 50% on player start. You can change that
+- `light` component exposes onboard RGB LED for use in integrations. In this example, it light a LED depending on the `media_player` state
+- `psram` enabled for all devices to smooth out playback
+
+### Loud ESP Full version only
+
+The [loud-esp](/firmware/esphome/loud-esp.yaml) config enables all the board peripheral
+
+- `remote_receiver` exposes the IR reader. Example configures SAMSUNG TV remote to control volume using volume buttons. 
+- `display` component configures the onboard display 
+- `touchscreen` component configures the onboard touchscreen and dumps touches to the console
+
+### Project example - Mopidy monitor
+
+The [loud-esp-mopidy-monitor](/firmware/esphome/loud-esp-mopidy-monitor.yaml) config is a project that I did myself for HA [Mopidy](https://mopidy.com/) media center integration
+
+- `media_player` can be used for voice announcements
+- `display` shows the current Mopidy playing item, Artist, and title.
+- three playback buttons allow Play/Pause track and move back and forward along the playlist via `touchscreen` controls
+- on the top of `display` there is a volume indicator with two buttons to change it
+- the progress bar shows the current progress of the track
+- `display` also shows playlist progress on the bottom with the current item highlighted 
+
+![image](https://github.com/sonocotta/loud-esp/assets/5459747/928184dc-bfa7-4456-a7f9-c12743d5ccc9)
+
+Currently, there is no component that can display track images, but it seems like it [will be added](https://github.com/esphome/esphome/pull/4710/) soon
+
+### Bonus - automation example
+
+The true power of the native speaker in the eHA is the use of automation. One example that I find useful. This simple automation will be pronounced every hour between 8 AM and 9 PM. Another one is used to pronounce bedtime, you get the point...
+
+![image](https://github.com/sonocotta/esp32-audio-dock/assets/5459747/fd25fb6a-19a7-4957-a2cb-a723723fde4d)
 
 ## Squeezelite-ESP32
 
