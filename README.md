@@ -1,4 +1,4 @@
-# Loud-ESP
+# Loud-ESP development board
 
 ![Open Source Hardware](/doc/images/open-source-hardware-logo.png)
 ![Open Source Software](/doc/images/open-source-software-logo.png)
@@ -85,7 +85,7 @@ Next, navigate to your Home Assistant (assuming you have your [ESPHome integrati
 
 ![image](https://github.com/sonocotta/esp32-audio-dock/assets/5459747/299fb7ab-003e-4259-b0c1-9d13dd3e54ba)
 
-[ESPHome](/firmware/esphome/) will give you ESPHome configs for both mini and full version of the board.
+[ESPHome](/firmware/esphome/) will give you ESPHome configs for both the mini and full versions of the board.
 
 ### Loud ESP Mini and Full version
 
@@ -94,29 +94,31 @@ The [loud-esp-mini](/firmware/esphome/loud-esp-mini.yaml) config enables common 
 - `media_player` publishes the media player into the Home assistant, so you can use it together with the native player or Music Assistant. You have a volume knob in the HA as well.
 - ![image](https://github.com/sonocotta/esp32-audio-dock/assets/5459747/f73a7347-672f-4dfc-afb8-35c7eb78e464)
 - Volume set up to 50% on player start. You can change that
-- `light` component exposes onboard RGB LED for use in integrations. In this example it light a LED depending on the `media_player` state
-- `psram` enabled for all devices to smooth-out playback
+- `light` component exposes onboard RGB LED for use in integrations. In this example, it light a LED depending on the `media_player` state
+- `psram` enabled for all devices to smooth out playback
 
 ### Loud ESP Full version only
 
 The [loud-esp](/firmware/esphome/loud-esp.yaml) config enables all the board peripheral
 
-- `remote_receiver` exposes IR reader. Example confgures SAMSUNG TV remote to control volume using volume buttons. 
-- `display` component configures onboard display 
-- `touchscreen` component configures onboard touchscreen and dumps touches to the console
+- `remote_receiver` exposes the IR reader. Example configures SAMSUNG TV remote to control volume using volume buttons. 
+- `display` component configures the onboard display 
+- `touchscreen` component configures the onboard touchscreen and dumps touches to the console
 
 ### Project example - Mopidy monitor
 
 The [loud-esp-mopidy-monitor](/firmware/esphome/loud-esp-mopidy-monitor.yaml) config is a project that I did myself for HA [Mopidy](https://mopidy.com/) media center integration
 
 - `media_player` can be used for voice announcements
-- `display` shows current Mopidy playing item, Artist and title.
+- `display` shows the current Mopidy playing item, Artist, and title.
 - three playback buttons allow Play/Pause track and move back and forward along the playlist via `touchscreen` controls
 - on the top of `display` there is a volume indicator with two buttons to change it
-- progress bar shows current progress of the track
-- `display` shows also playlist progress on the bottom with current item highlighted 
+- the progress bar shows the current progress of the track
+- `display` also shows playlist progress on the bottom with the current item highlighted 
 
-Currently there is no component that can display track image, but seems like it it [will be added](https://github.com/esphome/esphome/pull/4710/) soon
+![image](https://github.com/sonocotta/loud-esp/assets/5459747/928184dc-bfa7-4456-a7f9-c12743d5ccc9)
+
+Currently, there is no component that can display track images, but it seems like it [will be added](https://github.com/esphome/esphome/pull/4710/) soon
 
 ### Bonus - automation example
 
