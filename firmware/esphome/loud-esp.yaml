@@ -1,0 +1,134 @@
+substitutions:
+  name: esphome-web-e0c2e8
+  friendly_name: loud-esp
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  name_add_mac_suffix: false
+  project:
+    name: esphome.web
+    version: '1.0'
+  on_boot:
+    priority: 800
+    then:
+    - media_player.volume_set:
+        id: loudesp
+        volume: 50%
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+  level: DEBUG
+
+# Enable Home Assistant API
+api:
+
+# Allow Over-The-Air updates
+ota:
+  password: !secret esphome_ota_password
+
+wifi:
+  ssid: !secret esphome_wifi_ssid
+  password: !secret esphome_wifi_password
+  ap:
+    ssid: "$name Hotspot"
+    password: !secret esphome_ap_password
+
+psram:
+  mode: octal
+  speed: 80MHz
+
+i2s_audio:
+  i2s_lrclk_pin: GPIO25
+  i2s_bclk_pin: GPIO26
+
+media_player:
+  - platform: i2s_audio
+    name: $friendly_name
+    id: loudesp
+    dac_type: external
+    i2s_dout_pin: GPIO22
+    mode: stereo
+
+light:
+  - platform: esp32_rmt_led_strip
+    id: rgb_light
+    rgb_order: GRB
+    pin: GPIO33
+    num_leds: 1
+    rmt_channel: 1
+    chipset: ws2812
+    name: "RGB led"
+
+remote_receiver:
+  pin: 
+    number: GPIO0
+    inverted: true
+    mode:
+      input: true
+  dump: samsung
+  on_samsung:
+    then:
+    - if:
+        condition:
+          - lambda: 'return (x.data == 0xE0E0E01F);'
+        then:
+          - media_player.volume_up: 
+              id: loudesp
+    - if:
+        condition:
+          - lambda: 'return (x.data == 0xE0E0D02F);'
+        then:
+          - media_player.volume_down: 
+              id: loudesp
+
+spi:
+    clk_pin: GPIO18
+    mosi_pin: GPIO23
+    miso_pin: GPIO19
+
+touchscreen:
+  platform: xpt2046
+  cs_pin: GPIO2
+  interrupt_pin: GPIO21
+  update_interval: 50ms
+  threshold: 400
+  calibration:
+    x_min: 280
+    x_max: 3860
+    y_max: 340
+    y_min: 3860
+  transform:
+    swap_xy: false   
+    # mirror_x: true
+    # mirror_y: true
+  on_touch: 
+    - lambda: |-
+        for (auto touch: touches)  {
+            if (touch.state <= 2) {
+                ESP_LOGI("Touch points:", "id=%d x=%d, y=%d", touch.id, touch.x, touch.y);
+            }
+        }
+        
+display:
+  - platform: ili9xxx
+    id: tft_display
+    model: ILI9341
+    dimensions:
+      width: 240
+      height: 320
+      offset_height: 0
+      offset_width: 0
+    invert_colors: false
+    dc_pin: GPIO04
+    reset_pin: GPIO32
+    cs_pin: GPIO05
+    rotation: 180
+    update_interval: 1s
+    lambda: |-
+      it.fill(id(Color::BLACK));
