@@ -8,6 +8,23 @@
 
 ![image](https://user-images.githubusercontent.com/5459747/158466253-0855f9ef-9246-4e30-b53f-b1fed834d44e.png)
 
+- [Loud-ESP development board](#loud-esp-development-board)
+  - [Loud-ESP Features](#loud-esp-features)
+- [Hardware](#hardware)
+- [Firmware](#firmware)
+  - [Software samples](#software-samples)
+    - [Platformio IDE](#platformio-ide)
+  - [Arduino IDE](#arduino-ide)
+  - [ESPHome and Home Assistant](#esphome-and-home-assistant)
+    - [Loud ESP Mini and Full version](#loud-esp-mini-and-full-version)
+    - [Loud ESP Full version only](#loud-esp-full-version-only)
+    - [Project example - Mopidy monitor](#project-example---mopidy-monitor)
+    - [Bonus - automation example](#bonus---automation-example)
+  - [Squeezelite-ESP32](#squeezelite-esp32)
+    - [How to flash and configure](#how-to-flash-and-configure)
+  - [Where to buy](#where-to-buy)
+
+
 Loud-ESP Kits is a set of development boards designed to make audio development for the ESP platform easy and feature-rich.
 
 Key properties of this kit
@@ -52,14 +69,11 @@ Other
   - Raspberry Pi 4 case mechanical compatibility
   - Software samples for every piece of onboard peripheral
 
-## Hardware
+# Hardware
 
 Please find more information in the [hardware](/hardware) section
 
-## Firmware
-
-
-
+# Firmware
 
 ## Software samples
 
