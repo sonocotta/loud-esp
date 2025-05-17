@@ -4,15 +4,22 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 #endif
+
 #ifdef ESP32
 #include <WiFi.h>
 #endif
 
-#if defined(TEST_AUDIO) || defined(TEST_SD)
-#include <SD.h>
-#ifdef ESP32
-#include "SPIFFS.h"
+#ifdef TEST_SDIO
+#include <SD_MMC.h> 
+#define _SD SD_MMC
 #endif
+#ifdef TEST_SD
+#include <SD.h> 
+#define _SD SD
+#endif
+
+#if defined(TEST_AUDIO)
+#include "SPIFFS.h"
 #include <AudioOutputI2S.h>
 #include <AudioFileSourceSPIFFS.h>
 #include <AudioGeneratorWAV.h>
@@ -137,15 +144,20 @@ TestDef tests[] = {
        return decoded;
      }},
 #endif
-#ifdef TEST_SD
+#if defined(TEST_SD) || defined(TEST_SDIO)
     {"SD CARD", "", false, "", false, []() {
-      if (!SD.begin(TEST_SD))
+      #if defined(TEST_SD)
+      if (!_SD.begin(TEST_SD))
+      #endif
+      #if defined(TEST_SDIO)
+      if (!_SD.begin())
+      #endif
       {
         Serial.println("Card Mount Failed");
         return false;
       }
 
-      File root = SD.open("/");
+      File root = _SD.open("/");
       File entry = root.openNextFile();
       if (!entry)
       {
@@ -160,7 +172,7 @@ TestDef tests[] = {
       const char * path = entry.fullName();
       #endif
       Serial.printf("Reading file %s\n", path);
-      File f = SD.open(path, "r");
+      File f = _SD.open(path, "r");
       if (f == NULL)
       {
         Serial.println("Failed to open file for reading");
@@ -386,7 +398,7 @@ void setup()
 
 #ifdef TEST_ROTARY_ENC
   pinMode(TEST_ROTARY_ENC, INPUT);
-  ESP32Encoder::useInternalWeakPullResistors = UP;
+  ESP32Encoder::useInternalWeakPullResistors = puType::up;
   encoder.attachHalfQuad(TEST_ROTARY_ENC_A, TEST_ROTARY_ENC_B);
 #endif
 
