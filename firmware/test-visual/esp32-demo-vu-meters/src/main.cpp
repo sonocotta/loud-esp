@@ -60,7 +60,7 @@ void setup()
 
 #ifdef TEST_ROTARY_ENC
     pinMode(TEST_ROTARY_ENC, INPUT);
-    ESP32Encoder::useInternalWeakPullResistors = UP;
+    ESP32Encoder::useInternalWeakPullResistors = puType::up;
     encoder.attachHalfQuad(TEST_ROTARY_ENC_A, TEST_ROTARY_ENC_B);
 #endif
 
