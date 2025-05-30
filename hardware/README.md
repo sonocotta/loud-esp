@@ -3,9 +3,17 @@
 ![Open Source Hardware](/doc/images/open-source-hardware-logo.png)
 ![Open Source Software](/doc/images/open-source-software-logo.png)
 
-This is hardware design files for ESP32 Audio Development Kit
+These are the hardware design files for the ESP32 Audio Development Kit
+
+**Prototype**
 
 ![image](https://user-images.githubusercontent.com/5459747/158466512-df669764-af58-40e1-a43f-441dc81c687c.png)
+
+**Latest board**
+
+| | | 
+|---|---|
+| ![DSC_0016](https://github.com/user-attachments/assets/4cfdd93a-4dac-4961-b5b7-8627eb4a27f2) | ![DSC_0019](https://github.com/user-attachments/assets/9cbfd257-b2f6-4a49-821e-5c3074a19a03)
 
 ## Features
 
@@ -25,12 +33,12 @@ This is hardware design files for ESP32 Audio Development Kit
 
 | IMAGE       | DESCRIPTION    |
 |-------------|----------------|
-| ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/379863e4-a8a8-427d-8005-0649c9b06190) | ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/481cb005-b5fe-4d21-91e8-8c668a99703b) External RGB Strip connector. Chained to built-in RGB LED <br /> ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/257defe9-0bd0-47e8-a04d-714de224c25b) External Power switch. Short via external button to power on the board. <br /> ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/fe734f57-6319-49c0-9669-c51af540061e) External 5V source. Alternative source of power and charging <br /> ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/d3a84bff-7c0e-4efe-9dc4-0ec4bf5a0631) Disable battery current protection jumper. Short to override built-in 2A current limiter (only if you know what you're doing)
+| ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/379863e4-a8a8-427d-8005-0649c9b06190) | ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/481cb005-b5fe-4d21-91e8-8c668a99703b) External RGB Strip connector. Chained to built-in RGB LED <br /> ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/257defe9-0bd0-47e8-a04d-714de224c25b) External Power switch. Short via the external button to power on the board. <br /> ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/fe734f57-6319-49c0-9669-c51af540061e) External 5V source. Alternative source of power and charging <br /> ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/d3a84bff-7c0e-4efe-9dc4-0ec4bf5a0631) Disable battery current protection jumper. Short to override built-in 2A current limiter (only if you know what you're doing)
 
 ### GAIN and MONO Selection
 
-Both Boards have jumpers that can be used to configure gain factor individually for both channels. Default GAIN is +9Db. Short appropriate jumper to override default
-To hardwire DAC into MONO mode you need to cut MONO jumper (it is short by default)
+Both Boards have jumpers that can be used to configure the gain factor individually for both channels. The default GAIN is +9 dB. Short appropriate jumper to override the default
+To hardwire DAC into MONO mode, you need to cut the MONO jumper (it is short by default)
 
 | Loud-ESP MINI       | Loud-ESP    |
 |-------------|----------------|
@@ -39,19 +47,22 @@ To hardwire DAC into MONO mode you need to cut MONO jumper (it is short by defau
 
 ## Board Revisions
 
-These boards comes in multiple revisions, normally revision of the specific board will be clearly visible on the back side of the PCB.
+These boards comes in multiple revisions, normally the revision of the specific board will be clearly visible on the back side of the PCB.
 
 ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/86b32c3e-dd69-4518-9668-39900a6002bd)
 
-Current distribution of board revisions looks like this
+The current distribution of board revisions looks like this
 
 | Revision | Loud-ESP | Revision | Loud-ESP Mini  | Description
 |----|----|----|----|----| 
 | D | ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/7ddb571d-022a-41c2-9c8e-f08c979d7b53) | - |  | Extended PCB with built-in Rotary Encoder/ Joystick
 | E | ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/ae89a157-672c-4a27-9c29-734ca52663f4) | E | ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/433b2886-ab8b-431b-9ec1-c9aa13f1615b) | Pre-production prototype. Distributed among beta-testers
 | F | ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/bb767277-9762-48ff-bad5-bfd10ee21f27) | F | ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/5f299db2-525f-414b-b3ee-c937e3175b4c) | Crowd Supply distribution
+| G | ![image](https://github.com/user-attachments/assets/a15ced19-5ed9-47c9-9eb7-e164eb71484c) | - | - | Engineering sample that replace serial bridge with CH340 (due to few CP2102 failures reported by customers)
+| H | ![image](https://github.com/user-attachments/assets/e67960f1-b3a2-46a4-877a-e331167279f9) | - | - | Recent board update, introduce improved power topology, CH340 Serial bridge, USB-C port, and SDCARD over SDIO interface.
 
-Reviosions A, B, C were early prototypes, never distributed due to multiple hardware issues
+
+Reviosions A, B, and C were early prototypes, never distributed due to multiple hardware issues.
 
 ## Pin Definitions
 
@@ -59,35 +70,66 @@ Reviosions A, B, C were early prototypes, never distributed due to multiple hard
 
 ### Pin usage summary
 
-| PIN  | PRIMARY FUNC | JTAG | I2S  | TOUCH | TFT     | TOUCH_TFT | RGB_LED | BAT    | IR    | SDCARD | ROTARY ENC/ BTN INP | PSRAM     |    | OUT       | IN     |                            |
-|------|--------------|------|------|-------|---------|-----------|---------|--------|-------|--------|---------------------|-----------|----|-----------|--------|----------------------------|
-| IO0  | BOOT SEL     |      |      | T1    |         |           |         |        | IR_IN |        |                     |           | 0  | pulled up | OK     | outputs PWM signal at boot |
-| IO1  | TX           |      |      |       |         |           |         |        |       |        |                     |           | 1  | TX pin    | OK     | debug output at boot       |
-| IO2  |              |      |      | T2    |         | CS        |         |        |       |        |                     |           | 2  | OK        | OK     | connected to on-board LED  |
-| IO3  | RX           |      |      |       |         |           |         |        |       |        |                     |           | 3  | OK        | RX pin | HIGH at boot               |
-| IO4  |              |      |      | T0    | DC      |           |         |        |       |        |                     |           | 4  | OK        | OK     |                            |
-| IO5  | VSPI_CS      |      |      |       | CS      |           |         |        |       |        |                     |           | 5  | OK        | OK     | outputs PWM signal at boot |
-| IO12 | HSPI_MISO    | MTDI |      | T5    |         |           |         |        |       |        |                     |           | 12 | OK        | OK     | boot fail if pulled high   |
-| IO13 | HSPI_MOSI    | MTCK |      | T4    |         |           |         |        |       |        |                     |           | 13 | OK        | OK     |                            |
-| IO14 | HSPI_CLK     | MTMS |      | T6    |         |           |         |        |       |        |                     |           | 14 | OK        | OK     | outputs PWM signal at boot |
-| IO15 | HSPI_CS      | MTDO |      | T3    |         |           |         |        |       |        |                     |           | 15 | OK        | OK     | outputs PWM signal at boot |
-| IO16 |              |      |      |       |         |           |         |        |       |        |                     | PSRAM_CS  | 16 | OK        | OK     |                            |
-| IO17 |              |      |      |       |         |           |         |        |       |        |                     | PSRAM_CLK | 17 | OK        | OK     |                            |
-| IO18 | VSPI_CLK     |      |      |       | CLK     | CLK       |         |        |       | CLK    |                     |           | 18 | OK        | OK     |                            |
-| IO19 | VSPI_MISO    |      |      |       | MISO    | MISO      |         |        |       | MISO   |                     |           | 19 | OK        | OK     |                            |
-| IO21 |              |      |      |       |         |           |         | CHRG   |       |        |                     |           | 21 | OK        | OK     |                            |
-| IO22 |              |      | DATA |       |         |           |         |        |       |        |                     |           | 22 | OK        | OK     |                            |
-| IO23 | VSPI_MOSI    |      |      |       | MOSI    | MOSI      |         |        |       | MOSI   |                     |           | 23 | OK        | OK     |                            |
-| IO25 |              |      | WS   |       |         |           |         |        |       |        |                     |           | 25 | OK        | OK     |                            |
-| IO26 |              |      | CLK  |       |         |           |         |        |       |        |                     |           | 26 | OK        | OK     |                            |
-| IO27 |              |      |      | T7    |         |           |         |        |       | CS     |                     |           | 27 | OK        | OK     |                            |
-| IO32 |              |      |      | T9    | RES/LED |           |         |        |       |        |                     |           | 32 | OK        | OK     |                            |
-| IO33 |              |      |      | T8    |         |           | OUT     |        |       |        |                     |           | 33 | OK        | OK     |                            |
-| IO34 |              |      |      |       |         |           |         | BAT_IN |       |        |                     |           | 34 | OK        |        | input only                 |
-| IO35 |              |      |      |       |         |           |         |        |       |        | A                   |           | 35 | OK        |        | input only                 |
-| IO36 |              |      |      |       |         |           |         |        |       |        | B                   |           | 36 | OK        |        | input only                 |
-| IO39 |              |      |      |       |         |           |         |        |       |        | BTN                 |           | 39 | OK        |        | input only                 |
+| PIN  | PRIMARY FUNC | JTAG | I2S  | TFT     | TOUCH_TFT | RGB_LED | BAT    | IR    | SDCARD | ROTARY ENC/ BTN INP | PSRAM     |
+|------|--------------|------|------|---------|-----------|---------|--------|-------|--------|---------------------|-----------|
+| IO0  | BOOT SEL     |      |      |         |           |         |        | IR_IN |        |                     |           |
+| IO1  | TX           |      |      |         |           |         |        |       |        |                     |           |
+| IO2  |              |      |      |         | CS        |         |        |       |        |                     |           |
+| IO3  | RX           |      |      |         |           |         |        |       |        |                     |           |
+| IO4  |              |      |      | DC      |           |         |        |       |        |                     |           |
+| IO5  | VSPI_CS      |      |      | CS      |           |         |        |       |        |                     |           |
+| IO12 | HSPI_MISO    | MTDI |      |         |           |         |        |       |        |                     |           |
+| IO13 | HSPI_MOSI    | MTCK |      |         |           |         |        |       |        |                     |           |
+| IO14 | HSPI_CLK     | MTMS |      |         |           |         |        |       |        |                     |           |
+| IO15 | HSPI_CS      | MTDO |      |         |           |         |        |       |        |                     |           |
+| IO16 |              |      |      |         |           |         |        |       |        |                     | PSRAM_CS  |
+| IO17 |              |      |      |         |           |         |        |       |        |                     | PSRAM_CLK |
+| IO18 | VSPI_CLK     |      |      | CLK     | CLK       |         |        |       | CLK    |                     |           |
+| IO19 | VSPI_MISO    |      |      | MISO    | MISO      |         |        |       | MISO   |                     |           |
+| IO21 |              |      |      |         |           |         | CHRG   |       |        |                     |           |
+| IO22 |              |      | DATA |         |           |         |        |       |        |                     |           |
+| IO23 | VSPI_MOSI    |      |      | MOSI    | MOSI      |         |        |       | MOSI   |                     |           |
+| IO25 |              |      | WS   |         |           |         |        |       |        |                     |           |
+| IO26 |              |      | CLK  |         |           |         |        |       |        |                     |           |
+| IO27 |              |      |      |         |           |         |        |       | CS     |                     |           |
+| IO32 |              |      |      | RES/LED |           |         |        |       |        |                     |           |
+| IO33 |              |      |      |         |           | OUT     |        |       |        |                     |           |
+| IO34 |              |      |      |         |           |         | BAT_IN |       |        |                     |           |
+| IO35 |              |      |      |         |           |         |        |       |        | A                   |           |
+| IO36 |              |      |      |         |           |         |        |       |        | B                   |           |
+| IO39 |              |      |      |         |           |         |        |       |        | BTN                 |           |
 
-### How to use specific peripheral
+### Rev H update
 
-[esp32-peripheral-test](../firmware/test-peripheral/esp32-peripheral-test) firmware demonstrates how to use each of available peripheral. For may of them you would need libraries, which is also included into this example. Of couse many alternatives can be found, example will list those that are tested and work without a hustle. 
+| PIN  | PRIMARY FUNC | JTAG | I2S  | TFT  | TOUCH_TFT | RGB_LED | BAT | IR    | SDCARD | ROTARY ENC/ BTN INP | PSRAM     |
+|------|--------------|------|------|------|-----------|---------|-----|-------|--------|---------------------|-----------|
+| IO0  | BOOT SEL     |      |      |      |           |         |     | IR_IN |        |                     |           |
+| IO1  | TX           |      |      |      |           |         |     |       |        |                     |           |
+| IO2  |              |      |      |      |           |         |     |       | D0     |                     |           |
+| IO3  | RX           |      |      |      |           |         |     |       |        |                     |           |
+| IO4  |              |      |      |      |           |         |     |       | D1     |                     |           |
+| IO5  | VSPI_CS      |      |      | CS   |           |         |     |       |        |                     |           |
+| IO12 | HSPI_MISO    | MTDI |      |      |           |         |     |       | D2     |                     |           |
+| IO13 | HSPI_MOSI    | MTCK |      |      |           |         |     |       | D3     |                     |           |
+| IO14 | HSPI_CLK     | MTMS |      |      |           |         |     |       | CLK    |                     |           |
+| IO15 | HSPI_CS      | MTDO |      |      |           |         |     |       | CMD    |                     |           |
+| IO16 |              |      |      |      |           |         |     |       |        |                     | PSRAM_CS  |
+| IO17 |              |      |      |      |           |         |     |       |        |                     | PSRAM_CLK |
+| IO18 | VSPI_CLK     |      |      | CLK  | CLK       |         |     |       | CLK    |                     |           |
+| IO19 | VSPI_MISO    |      |      | MISO | MISO      |         |     |       | MISO   |                     |           |
+| IO21 |              |      |      | DC   |           |         |     |       |        |                     |           |
+| IO22 |              |      | DATA |      |           |         |     |       |        |                     |           |
+| IO23 | VSPI_MOSI    |      |      | MOSI | MOSI      |         |     |       | MOSI   |                     |           |
+| IO25 |              |      | WS   |      |           |         |     |       |        |                     |           |
+| IO26 |              |      | CLK  |      |           |         |     |       |        |                     |           |
+| IO27 |              |      |      |      | CS        |         |     |       |        |                     |           |
+| IO32 |              |      |      | LED  |           |         |     |       |        |                     |           |
+| IO33 |              |      |      |      |           | OUT     |     |       |        |                     |           |
+| IO34 |              |      |      |      |           |         |     |       |        | B                   |           |
+| IO35 |              |      |      |      |           |         |     |       |        | A                   |           |
+| IO36 |              |      |      |      |           |         |     |       |        | BTN                 |           |
+| IO39 |              |      |      |      |           |         |     |       | HOST   |                     |           |
+
+### How to use a specific peripheral
+
+[esp32-peripheral-test](../firmware/test-peripheral/esp32-peripheral-test) firmware demonstrates how to use each of available peripheral. For many of them, you would need libraries, which are also included in this example. Of couse many alternatives can be found, example will list those that are tested and work without a hustle. 
