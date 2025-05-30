@@ -11,7 +11,7 @@ These are the hardware design files for the ESP32 Audio Development Kit
 
 **Latest board**
 
-| | | 
+| Assembed | PCB only | 
 |---|---|
 | ![DSC_0016](https://github.com/user-attachments/assets/4cfdd93a-4dac-4961-b5b7-8627eb4a27f2) | ![DSC_0019](https://github.com/user-attachments/assets/9cbfd257-b2f6-4a49-821e-5c3074a19a03)
 
@@ -100,6 +100,23 @@ Reviosions A, B, and C were early prototypes, never distributed due to multiple 
 | IO39 |              |      |      |         |           |         |        |       |        | BTN                 |           |
 
 ### Rev H update
+
+Key hardware updates introduced in the rev H
+
+- SD-CARD over SDIo interface
+- CH340 Serial chip instead of CP2102
+  - Few people reported its failure
+- USB-C instead of mini-USB
+- TPS63060 step-up/step-down 3.3V converter, which ensures smooth operation with low battery levels
+  - Previous revision started flickering when battery voltage goes low, since 3V3 rail would go even below 3V, causing ESP32 brown-outs
+
+#### SD-CARD issues
+
+Having used Loud-ESP for a few projects involving SDCARD, I came to the idea that having 3 high-speed devices on the same SPI line is not the best approach. Since SD-CARD alternatively can be connected to the SDIO interface, I decided to follow that path in revision H.
+
+SDIO interface is hardwired to pins IO2, IO4, IO12-15, and by the SD specification, **all must be pulled high** for reliable operation. At the same time, ESP32 specification states that **pins 2 and 12 must be low at boot**, otherwise ESP32 will go into download mode. Thus, I left them floating, which caused some SD cards to fail. I didn't find a reliable solution to this contradiction and consider going back to the SPI interface in the next revision.
+
+#### Updated pinout
 
 | PIN  | PRIMARY FUNC | JTAG | I2S  | TFT  | TOUCH_TFT | RGB_LED | BAT | IR    | SDCARD | ROTARY ENC/ BTN INP | PSRAM     |
 |------|--------------|------|------|------|-----------|---------|-----|-------|--------|---------------------|-----------|
