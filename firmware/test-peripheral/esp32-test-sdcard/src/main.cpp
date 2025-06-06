@@ -1,9 +1,9 @@
 #include <Arduino.h>
-#include <SD.h>
 #include <SPI.h>
+#include <SD.h>
 
 #define TESTONCE
-#define TESTQUICK
+//#define TESTQUICK
 
 #ifdef TFT_ENABLED
 #include "SPI.h"
@@ -11,11 +11,15 @@
 TFT_eSPI tft = TFT_eSPI();
 #endif
 
-#ifdef ESP32
-#define SDCLASS SDFS
+#ifdef TEST_SDIO
+  #include <SD_MMC.h>
+  #define SD_HW SD_MMC
+  #define SD_FS SDMMCFS
 #endif
-#ifdef ESP8266
-#define SDCLASS SDClass
+
+#ifdef PIN_SD_CS
+  #define SD_HW SD
+  #define SD_FS SDFS
 #endif
 
 #ifdef TFT_ENABLED
@@ -32,41 +36,7 @@ TFT_eSPI tft = TFT_eSPI();
   Serial.print(x);
 #endif
 
-#ifdef TFT_ENABLED
-unsigned long testText()
-{
-  tft.fillScreen(TFT_BLACK);
-  unsigned long start = micros();
-  tft.setCursor(0, 0);
-  tft.setTextColor(TFT_WHITE);
-  tft.setTextSize(1);
-  tft.println("Hello World!");
-  tft.setTextColor(TFT_YELLOW);
-  tft.setTextSize(2);
-  tft.println(1234.56);
-  tft.setTextColor(TFT_RED);
-  tft.setTextSize(3);
-  tft.println(0xDEADBEEF, HEX);
-  tft.println();
-  tft.setTextColor(TFT_GREEN);
-  tft.setTextSize(5);
-  tft.println("Groop");
-  tft.setTextSize(2);
-  tft.println("I implore thee,");
-  // tft.setTextColor(TFT_GREEN,TFT_BLACK);
-  tft.setTextSize(1);
-  tft.println("my foonting turlingdromes.");
-  tft.println("And hooptiously drangle me");
-  tft.println("with crinkly bindlewurdles,");
-  tft.println("Or I will rend thee");
-  tft.println("in the gobberwarts");
-  tft.println("with my blurglecruncheon,");
-  tft.println("see if I don't!");
-  return micros() - start;
-}
-#endif
-
-void listDir(SDCLASS &fs, const char *dirname, uint8_t levels)
+void listDir(SD_FS &fs, const char *dirname, uint8_t levels)
 {
   SAY("Listing directory: ");
   SAYLN(dirname);
@@ -107,7 +77,7 @@ void listDir(SDCLASS &fs, const char *dirname, uint8_t levels)
   }
 }
 
-void readFile(SDCLASS &fs, const char *path)
+void readFile(SD_FS &fs, const char *path)
 {
   SAY("Reading file: ");
   SAYLN(path);
@@ -140,14 +110,9 @@ void setup()
 #ifdef TFT_ROTATION
   tft.setRotation(TFT_ROTATION);
 #endif
-
-  testText();
 #endif
 
   delay(1000);
-
-  // pinMode(PIN_SD_CS, INPUT_PULLUP);
-  // pinMode(MISO, INPUT_PULLUP);
 }
 
 void loop(void)
@@ -157,113 +122,123 @@ void loop(void)
   tft.setCursor(0, 0);
 #endif
 
-  if (!SD.begin(PIN_SD_CS)) {
-    SAYLN("Card Mount Failed");
+#if defined(TEST_SDIO)
+  pinMode(2, INPUT_PULLUP);
+  if (!SD_HW.begin("/sdcard", true)) { // <- uncomment for 1-bit mode
+#endif
+#if defined(PIN_SD_CS)
+  if (!SD_HW.begin(PIN_SD_CS)) {
+#endif
+      SAYLN("Card Mount Failed");
+#ifdef TESTONCE
+      SAYLN("Test finished");
+      while (1)
+        yield();
+#else
+  return;
+#endif
+    } else {
+      SAYLN("Card Mount Success");
+    }
+
+#ifdef ESP32
+    uint8_t cardType = SD_HW.cardType();
+
+    if (cardType == CARD_NONE)
+    {
+      SAYLN("No SD card attached");
+      // return;
+    }
+
+    SAY("SD Card Type: ");
+    if (cardType == CARD_MMC)
+    {
+      SAYLN("MMC");
+    }
+    else if (cardType == CARD_SD)
+    {
+      SAYLN("SDSC");
+    }
+    else if (cardType == CARD_SDHC)
+    {
+      SAYLN("SDHC");
+    }
+    else
+    {
+      SAYLN("UNKNOWN");
+    }
+
+    uint64_t cardSize = SD_HW.cardSize() / (1024 * 1024);
+    Serial.printf("SD Card Size: %lluMB\n", cardSize);
+
+#endif
+
+#ifdef TESTQUICK
+    listDir(SD_HW, "/", 2);
+
+    delay(1000);
+    uint32_t start_time = millis();
+    readFile(SD_HW, "/foo.txt");
+
+    SAY("\nFinished in (ms): ");
+    SAYLN(millis() - start_time);
+#else
+
+const char *file_hello = "/hello.txt";
+
+Serial.printf("Opening file %s for writing\n", file_hello);
+File f = SD_HW.open(file_hello, "w");
+if (f == NULL)
+{
+  Serial.println("Failed to open file for writing");
+  return;
+}
+
+char *text = "THETEST";
+uint32_t bytesWritten = 0;
+uint32_t startTime = millis();
+while (bytesWritten < 1024 * 1024)
+{
+  f.println(text);
+  // fprintf(f, "%s\n", text);
+  bytesWritten += strlen(text) + 1;
+  yield();
+}
+f.close();
+int ms_spend = (int)(millis() - startTime);
+Serial.printf("File written, %d bytes stored in %d ms, speed = %2.2f  kB/s\n", bytesWritten, ms_spend, (float)bytesWritten / ms_spend);
+
+// Open renamed file for reading
+Serial.printf("Reading file %s\n", file_hello);
+f = SD_HW.open(file_hello, "r");
+if (f == NULL)
+{
+  Serial.println("Failed to open file for reading");
+  return;
+}
+
+// Read a line from file
+uint32_t bytesRead = 0;
+startTime = millis();
+uint8_t line[64];
+while (f.available())
+{
+  f.read(line, sizeof line);
+  bytesRead += sizeof line;
+  yield();
+}
+
+int ms_read = (int)(millis() - startTime);
+Serial.printf("Read from file, %d bytes in %d ms, speed = %2.2f kB/s\n", bytesRead, ms_read, (float)bytesRead / ms_read);
+f.close();
+#endif
+
 #ifdef TESTONCE
     SAYLN("Test finished");
     while (1)
       yield();
 #else
-    return;
-#endif
-  }
-
-#ifdef ESP32
-  uint8_t cardType = SD.cardType();
-
-  if (cardType == CARD_NONE)
-  {
-    SAYLN("No SD card attached");
-    return;
-  }
-
-  SAY("SD Card Type: ");
-  if (cardType == CARD_MMC)
-  {
-    SAYLN("MMC");
-  }
-  else if (cardType == CARD_SD)
-  {
-    SAYLN("SDSC");
-  }
-  else if (cardType == CARD_SDHC)
-  {
-    SAYLN("SDHC");
-  }
-  else
-  {
-    SAYLN("UNKNOWN");
-  }
-
-  uint64_t cardSize = SD.cardSize() / (1024 * 1024);
-  Serial.printf("SD Card Size: %lluMB\n", cardSize);
-
-#endif
-
-#ifdef TESTQUICK
-  listDir(SD, "/", 2);
-
-  delay(1000);
-  uint32_t start_time = millis();
-  readFile(SD, "/foo.txt");
-
-  SAY("\nFinished in (ms): ");
-  SAYLN(millis() - start_time);
-#else
-
-  const char *file_hello = "/hello.txt";
-
-  Serial.printf("Opening file %s for writing\n", file_hello);
-  File f = SD.open(file_hello, "w");
-  if (f == NULL)
-  {
-    Serial.println("Failed to open file for writing");
-    return;
-  }
-
-  char *text = "THETEST";
-  uint32_t bytesWritten = 0;
-  uint32_t startTime = millis();
-  while (bytesWritten < 1024 * 1024)
-  {
-    f.println(text);
-    // fprintf(f, "%s\n", text);
-    bytesWritten += strlen(text) + 1;
-    yield();
-  }
-  f.close();
-  Serial.printf("File written, %d bytes stored in %d ms\n", bytesWritten, (int)(millis() - startTime));
-
-  // Open renamed file for reading
-  Serial.printf("Reading file %s\n", file_hello);
-  f = SD.open(file_hello, "r");
-  if (f == NULL)
-  {
-    Serial.println("Failed to open file for reading");
-    return;
-  }
-
-  // Read a line from file
-  uint32_t bytesRead = 0;
-  startTime = millis();
-  uint8_t line[64];
-  while (f.available())
-  {
-    f.read(line, sizeof line);
-    bytesRead += sizeof line;
-    yield();
-  }
-
-  Serial.printf("Read from file, %d bytes in %d ms\n", bytesRead, (int)(millis() - startTime));
-  f.close();
-#endif
-
-#ifdef TESTONCE
-  SAYLN("Test finished");
-  while (1)
-    yield();
-#else
-  SAYLN("Restart in 5 seconds ... ");
-  delay(5000);
+SAYLN("Restart in 5 seconds ... ");
+delay(5000);
 #endif
 }
