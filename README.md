@@ -6,7 +6,7 @@
 <br />
 [![Dev Chat](https://img.shields.io/discord/1233306441469657140?logo=discord&label=discord&style=flat-square)](https://discord.gg/PtnaAaQMpS)
 
-{replace image}
+<img width="1587" height="1002" alt="image" src="https://github.com/user-attachments/assets/fb6cd736-475e-430b-b656-0f7bd52e3ca6" />
 
 - [Loud-ESP development board](#loud-esp-development-board)
   - [Loud-ESP Features](#loud-esp-features)
@@ -28,7 +28,7 @@
   - [Introduction](#introduction)
   - [ESP Audio Development Kits repos](#esp-audio-development-kits-repos)
   - [How to flash](#how-to-flash)
-    - [Recomended: Using Platformio](#recomended-using-platformio)
+    - [Recommended: Using Platformio](#recommended-using-platformio)
     - [Arduino IDE](#arduino-ide)
   - [ESPHome and Home Assistant](#esphome-and-home-assistant)
     - [Loud ESP Mini and Full version](#loud-esp-mini-and-full-version)
@@ -43,23 +43,23 @@
 Loud-ESP Kits is a set of development boards designed to make audio development for the ESP platform easy and feature-rich.
 
 Key properties of this kit
-- It uses ESP chips as an MCU core, which has huge community support and adaptation
-- It delivers 2-channel amplified high-quality audio ready to be connected to speakers of choice - no need to have an external amplifier. Therefore it is all you need to complete your audio projects
-- It has low idle power consumption and built-in Li-Ion battery management - therefore it is a good choice for any sort of portable and portable audio projects.
-- It has a rich UX peripheral, most obviously a TFT screen with touch, but also an IR receiver, and header for physical controls, like a rotary encoder or joystick. Therefore it is a good choice for standalone user-facing audio projects.
+- It uses ESP chips as an MCU core, which has a huge community support and adaptation
+- It delivers 2-channel amplified high-quality audio ready to be connected to speakers of choice - no need to have an external amplifier. Therefore, it is all you need to complete your audio projects
+- It has low idle power consumption and built-in Li-Ion battery management; therefore, it is a good choice for any sort of portable and portable audio projects.
+- It has a rich UX peripheral, most obviously a TFT screen with touch, but also an IR receiver, and a header for physical controls, like a rotary encoder or joystick. Therefore, it is a good choice for standalone user-facing audio projects.
 
-As of autumn 2025, I'm working on spin-off of the original board that is tailored specifically for [Espuino](https://github.com/biologist79/ESPuino) firmware, with a key deifference to the original board is a replacement of TFT screen with RFID reader. It can be used for offline RFID-controlled media player devices, although I personally found it most usable in connection with Home Assistant and ESPHome-driver integration. 
+As of autumn 2025, I'm working on a spin-off of the original board that is tailored specifically for [Espuino](https://github.com/biologist79/ESPuino) firmware, with a key difference to the original board being a replacement of the TFT screen with an RFID reader. It can be used for offline RFID-controlled media player devices, although I personally found it most usable in connection with Home Assistant and ESPHome driver integration. 
 
-While working on the new revision of the board, both recieved few major schematic improvements, to address few issues I found over the time with original design. These include
+While working on the new revision of the board, both received a few major schematic improvements to address a few issues I found over time with the original design. These include
 
-- New 3.3V buck-boost IC (TPS63060DSCR) that better handle low battery state
-- SDIO interface for the SD-card (as oopsed to SPI it uses less pins and provide better speed)
-- Move to CH340C serial chip, as it seems more robust compared to CP2102
-- Better power switch and few smaller improvements.
+- New 3.3V buck-boost IC (TPS63060DSCR) that better handles low battery state
+- SDIO interface for the SD-card (as opposed to SPI, it uses fewer pins and provides better speed)
+- Move to the CH340C serial chip, as it seems more robust compared to the CP2102
+- Better power switch and a few smaller improvements.
 
 ## Loud-ESP Features
 
-{image-placeholder}
+<img width="1978" height="1312" alt="image" src="https://github.com/user-attachments/assets/46f90570-3364-401d-b5cd-80301260fd21" />
 
 MCU Core
   - ESP32 Dual Core 32-bit LX6 microprocessor running at 240 MHz
@@ -85,7 +85,7 @@ Peripheral
   - 2.8'' 320x240 TFT Screen with Touch sensor (except Mini version)
   - Wifi and BT
   - IR reader (except the Mini version)
-  - RGB led, RGB LED strip header
+  - RGB LED, RGB LED strip header
   - SDCard socket (except Mini version)
   - JTAG header (except the Mini version)
   - Rotary encoder/Joystick header (except the Mini version)
@@ -101,16 +101,16 @@ Other
 
 Compared to the original board, this one clearly changed shape to be hosted in the speaker enclosure. Apart from that, changes include
 
-MCU, Audio and Battery management
+MCU, Audio, and Battery management
   - Same as Loud-ESP
 
 Peripheral
   - RFID reader 
-  - RGB led bar (12 LEDs)
+  - RGB LED bar (12 LEDs)
   - SDCard socket (except Mini version)
   - Onboard rotary encoder with push button
-  - 5x Push-buttons connectd via GPIO expander
-  - 1x Push-button (insted of slide switch) to cutout power while not in use
+  - 5x Push-buttons connected via GPIO expander
+  - 1x Push-button (instead of a slide switch) to cut off power while not in use
   
 
 # Hardware
@@ -148,7 +148,7 @@ Peripheral
 ### GAIN and MONO Selection
 
 Both Boards have jumpers that can be used to configure the gain factor individually for both channels. The default GAIN is +9 dB. Short appropriate jumper to override the default
-To hardwire DAC into MONO mode, you need to cut the MONO jumper (it is short by default)
+To hardwire the DAC into MONO mode, you need to cut the MONO jumper (it is short by default)
 
 | Loud-ESP MINI       | Loud-ESP    |
 |-------------|----------------|
@@ -157,7 +157,7 @@ To hardwire DAC into MONO mode, you need to cut the MONO jumper (it is short by 
 
 ## Board Revisions
 
-These boards comes in multiple revisions, normally the revision of the specific board will be clearly visible on the back side of the PCB.
+These boards come in multiple revisions; normally, the revision of the specific board will be clearly visible on the back side of the PCB.
 
 ![image](https://github.com/sonocotta/esp32-audio-development-kit/assets/5459747/86b32c3e-dd69-4518-9668-39900a6002bd)
 
@@ -218,13 +218,13 @@ Key hardware updates introduced in the rev H
   - Few people reported its failure
 - USB-C instead of mini-USB
 - TPS63060 step-up/step-down 3.3V converter, which ensures smooth operation with low battery levels
-  - Previous revision started flickering when battery voltage goes low, since 3V3 rail would go even below 3V, causing ESP32 brown-outs
+  - Previous revision started flickering when battery voltage goes low, since the 3V3 rail would go even below 3V, causing ESP32 brown-outs
 
 #### SD-CARD issues
 
-Having used Loud-ESP for a few projects involving SDCARD, I came to the idea that having 3 high-speed devices on the same SPI line is not the best approach. Since SD-CARD alternatively can be connected to the SDIO interface, I decided to follow that path in revision H.
+Having used Loud-ESP for a few projects involving SDCARD, I came to the idea that having 3 high-speed devices on the same SPI line is not the best approach. Since SD-CARD can alternatively be connected to the SDIO interface, I decided to follow that path in revision H.
 
-SDIO interface is hardwired to pins IO2, IO4, IO12-15, and by the SD specification, **all must be pulled high** for reliable operation. At the same time, ESP32 specification states that **pins 2 and 12 must be low at boot**, otherwise ESP32 will go into download mode. Thus, I left them floating, which caused some SD cards to fail. I didn't find a reliable solution to this contradiction and consider going back to the SPI interface in the next revision.
+SDIO interface is hardwired to pins IO2, IO4, IO12-15, and by the SD specification, **all must be pulled high** for reliable operation. At the same time, the ESP32 specification states that **pins 2 and 12 must be low at boot**, otherwise the ESP32 will go into download mode. Thus, I left them floating, which caused some SD cards to fail. I didn't find a reliable solution to this contradiction and consider going back to the SPI interface in the next revision.
 
 #### Updated pinout
 
@@ -259,7 +259,7 @@ SDIO interface is hardwired to pins IO2, IO4, IO12-15, and by the SD specificati
 
 ### How to use a specific peripheral
 
-[esp32-peripheral-test](../firmware/test-peripheral/esp32-peripheral-test) firmware demonstrates how to use each of available peripheral. For many of them, you would need libraries, which are also included in this example. Of couse many alternatives can be found, example will list those that are tested and work without a hustle. 
+[esp32-peripheral-test](../firmware/test-peripheral/esp32-peripheral-test) firmware demonstrates how to use each of available peripheral. For many of them, you would need libraries, which are also included in this example. Of course, many alternatives can be found; for example, we will list those that are tested and work without a hassle. 
 
 # Firmware
 
@@ -267,9 +267,9 @@ SDIO interface is hardwired to pins IO2, IO4, IO12-15, and by the SD specificati
 
 Most repos are [Platformio](https://platformio.org/) projects, all tested under Ubuntu 20.04 LTS. Some are [ESP IDF](https://www.espressif.com/en/products/sdks/esp-idf) projects, and would require [installation steps](https://github.com/espressif/esp-idf) before build
 
-Most of the repos will utilize multiple environments with different settings for different board revisions. Please refer to **platformio.ini** file within project folder.
+Most of the repos will utilize multiple environments with different settings for different board revisions. Please refer to **platformio.ini** file within the project folder.
 
-For each project please find detailed description using links below
+For each project, please find a detailed description using links below
 
 ## ESP Audio Development Kits repos
 
@@ -320,9 +320,9 @@ For each project please find detailed description using links below
 
 ## How to flash
 
-### Recomended: Using Platformio
+### Recommended: Using Platformio
 
-Whenever repo is a [Platformio](https://platformio.org/) project, it is preferred to use it to flash firmware to the board. **platformio.ini** file will contain specific sections for different board revisions and configurations. Hardware cpecific details is preferred to keep in this file as well.
+Whenever repo is a [Platformio](https://platformio.org/) project, it is preferred to use it to flash firmware to the board. **platformio.ini** file will contain specific sections for different board revisions and configurations. Hardware-specific details are preferred to keep in this file as well.
 
 ```
 [env:esp32-dev-board-c-240x240]
@@ -363,7 +363,7 @@ Follow the [ESP8266Audio](https://github.com/earlephilhower/ESP8266Audio) librar
 
 ## ESPHome and Home Assistant
 
-Being an ESP32-based device, you can easily integrate it into your Home Assistant using ESPHome. Start with [esphome web installer](https://web.esphome.io/), which will give you ESPHome base install and WiFi configuration in minutes. 
+Being an ESP32-based device, you can easily integrate it into your Home Assistant using ESPHome. Start with [esphome web installer](https://web.esphome.io/), which will give you an ESPHome base install and WiFi configuration in minutes. 
 
 |   |   |
 |----|----|
@@ -380,17 +380,17 @@ Next, navigate to your Home Assistant (assuming you have your [ESPHome integrati
 
 The [loud-esp-mini](/firmware/esphome/loud-esp-mini.yaml) config enables common board peripheral
 
-- `media_player` publishes the media player into the Home assistant, so you can use it together with the native player or Music Assistant. You have a volume knob in the HA as well.
+- `media_player` publishes the media player into the Home Assistant, so you can use it together with the native player or Music Assistant. You have a volume knob in the HA as well.
 - ![image](https://github.com/sonocotta/esp32-audio-dock/assets/5459747/f73a7347-672f-4dfc-afb8-35c7eb78e464)
 - Volume set up to 50% on player start. You can change that
-- `light` component exposes onboard RGB LED for use in integrations. In this example, it light a LED depending on the `media_player` state
+- `light` component exposes onboard RGB LED for use in integrations. In this example, it lights an LED depending on the `media_player` state
 - `psram` enabled for all devices to smooth out playback
 
 ### Loud ESP Full version only
 
 The [loud-esp](/firmware/esphome/loud-esp.yaml) config enables all the board peripheral
 
-- `remote_receiver` exposes the IR reader. Example configures SAMSUNG TV remote to control volume using volume buttons. 
+- `remote_receiver` exposes the IR reader. Example configures the SAMSUNG TV remote to control volume using volume buttons. 
 - `display` component configures the onboard display 
 - `touchscreen` component configures the onboard touchscreen and dumps touches to the console
 
@@ -401,8 +401,8 @@ The [loud-esp-mopidy-monitor](/firmware/esphome/loud-esp-mopidy-monitor.yaml) co
 - `media_player` can be used for voice announcements
 - `display` shows the current Mopidy playing item, Artist, and title.
 - three playback buttons allow Play/Pause track and move back and forward along the playlist via `touchscreen` controls
-- on the top of `display` there is a volume indicator with two buttons to change it
-- the progress bar shows the current progress of the track
+- on the top of `display`, there is a volume indicator with two buttons to change it
+- The progress bar shows the current progress of the track
 - `display` also shows playlist progress on the bottom with the current item highlighted 
 
 ![image](https://github.com/sonocotta/loud-esp/assets/5459747/928184dc-bfa7-4456-a7f9-c12743d5ccc9)
@@ -417,7 +417,7 @@ The true power of the native speaker in the eHA is the use of automation. One ex
 
 ## Squeezelite-ESP32
 
-Squeezelite-ESP32 is a multimedia software suite, that started as a renderer (or player) of LMS (Logitech Media Server). Now it is extended with 
+Squeezelite-ESP32 is a multimedia software suite that started as a renderer (or player) of LMS (Logitech Media Server). Now it is extended with 
 - **Spotify** over-the-air player using SpotifyConnect (thanks to cspot)
 - **AirPlay** controller (iPhone, iTunes ...) and enjoy synchronization multiroom as well (although it's AirPlay 1 only)
 - Traditional **Bluetooth** device (iPhone, Android)
@@ -427,7 +427,7 @@ And LMS itself
 - LMS can be extended by numerous plugins and can be controlled using a Web browser or dedicated applications (iPhone, Android).
 - It can also send audio to UPnP, Sonos, Chromecast, and AirPlay speakers/devices.
 
-All ESP32-based boards are tested with [Squeezelite-ESP32](https://github.com/sle118/squeezelite-esp32) software, which can be flashed using nothing but web browser. You can use [Squeezelite-ESP32 installer](https://sonocotta.github.io/esp32-audio-dock/) for that purpose.
+All ESP32-based boards are tested with [Squeezelite-ESP32](https://github.com/sle118/squeezelite-esp32) software, which can be flashed using nothing but a web browser. You can use [Squeezelite-ESP32 installer](https://sonocotta.github.io/esp32-audio-dock/) for that purpose.
 
 ### How to flash and configure
 
