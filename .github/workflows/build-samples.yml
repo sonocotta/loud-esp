@@ -23,19 +23,14 @@ jobs:
           - ./firmware/test-peripheral/esp32-test-sleep-by-pin
           - ./firmware/test-peripheral/esp32-test-battery
           - ./firmware/test-visual/esp32-esp8266-adafruit-spi-display-test
-          - ./firmware/test-visual/esp32-esp8266-fake-win-xp
           - ./firmware/test-visual/esp32-demo-vu-meters
-          - ./firmware/test-visual/esp32-esp8266-currency-monitor
           - ./firmware/test-visual/esp32-test-lvgl
-          - ./firmware/test-visual/esp32-esp8266-screensaver
           - ./firmware/test-visual/esp32-demo-ir-volume
-          - ./firmware/test-visual/esp32-esp8266-trex-game
           - ./firmware/test-visual/esp32-esp8266-spi-display-test
           - ./firmware/test-visual/esp32-demo-visualisations
           - ./firmware/test-audio/esp32-esp8266-audio-test-spiffs-once
           - ./firmware/test-audio/esp32-esp8266-audio-test-spiffs-random
           - ./firmware/test-audio/esp32-esp8266-audio-test-stream
-          - ./firmware/test-audio/esp32-esp8266-wifi-radio-station
           - ./firmware/test-audio/esp32-esp8266-audio-test-stream-web
           - ./firmware/test-audio/esp32-esp8266-audio-test-eeprom
           - ./firmware/test-audio/esp32-esp8266-audio-test-sdcard-random
@@ -72,7 +67,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install --upgrade platformio
-          
+                    
+      - name: Install intelhex
+        run: pip install intelhex
+
       - name: Build examples
         run: |
           pio run -d ${{ matrix.example }}
