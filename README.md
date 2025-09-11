@@ -59,7 +59,7 @@ While working on the new revision of the board, both received a few major schema
 
 ## Loud-ESP Features
 
-<img width="1978" height="1312" alt="image" src="https://github.com/user-attachments/assets/46f90570-3364-401d-b5cd-80301260fd21" />
+<img width="1936" height="1275" alt="image" src="https://github.com/user-attachments/assets/38446061-c6a0-4106-9699-6d05727fd92b" /
 
 MCU Core
   - ESP32 Dual Core 32-bit LX6 microprocessor running at 240 MHz
@@ -97,7 +97,7 @@ Other
 
 ## RFID Edition
 
-{image-placeholder}
+<img width="1978" height="1312" alt="image" src="https://github.com/user-attachments/assets/46f90570-3364-401d-b5cd-80301260fd21" />
 
 Compared to the original board, this one clearly changed shape to be hosted in the speaker enclosure. Apart from that, changes include
 
