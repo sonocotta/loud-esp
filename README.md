@@ -59,7 +59,7 @@ While working on the new revision of the board, both received a few major schema
 
 ## Loud-ESP Features
 
-<img width="1936" height="1275" alt="image" src="https://github.com/user-attachments/assets/38446061-c6a0-4106-9699-6d05727fd92b" /
+<img width="1936" height="1275" alt="image" src="https://github.com/user-attachments/assets/38446061-c6a0-4106-9699-6d05727fd92b" />
 
 MCU Core
   - ESP32 Dual Core 32-bit LX6 microprocessor running at 240 MHz
