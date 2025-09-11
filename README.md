@@ -27,6 +27,9 @@
 - [Firmware](#firmware)
   - [Introduction](#introduction)
   - [ESP Audio Development Kits repos](#esp-audio-development-kits-repos)
+  - [Third-party repositories that run on Loud-ESP](#third-party-repositories-that-run-on-loud-esp)
+    - [Audio projects](#audio-projects)
+    - [Visual only projects](#visual-only-projects)
   - [How to flash](#how-to-flash)
     - [Recommended: Using Platformio](#recommended-using-platformio)
     - [Arduino IDE](#arduino-ide)
@@ -273,7 +276,6 @@ For each project, please find a detailed description using links below
 
 ## ESP Audio Development Kits repos
 
-- (WIP) [esp-tunein-player](/firmware/esp-tunein-player) - TuneIn Wifi client
 - [esp32-soundboard](/firmware/esp32-soundboard) - singing birds sound board
 - [test-audio](/firmware/test-audio)
     - [esp32-esp8266-audio-test-eeprom](/firmware/test-audio/esp32-esp8266-audio-test-eeprom) - play audio from EEPROM example
@@ -303,20 +305,22 @@ For each project, please find a detailed description using links below
     - [esp32-demo-vu-meters](/firmware/test-visual/esp32-demo-vu-meters/) - demo of VU meters rendered on the screen
     - [esp32-esp8266-adafruit-spi-display-test](/firmware/test-visual/esp32-esp8266-adafruit-spi-display-test) - TFT example using Adafruit library
     - [esp32-esp8266-spi-display-test](/firmware/test-visual/esp32-esp8266-spi-display-test) - TFT example using [TFT_eSPI](https://github.com/Bodmer/TFT_eSPI) library
-    - [esp32-esp8266-currency-monitor](/firmware/test-visual/esp32-esp8266-currency-monitor) - adaptation of [VolosR/currency240240](https://github.com/VolosR/currency240240) repo
-    - [esp32-esp8266-fake-win-xp](/firmware/test-visual/esp32-esp8266-fake-win-xp) - adaptation of [VolosR/fAKEWINESP](https://github.com/VolosR/fAKEWINESP) repo
-    - [esp32-esp8266-screensaver](/firmware/test-visual/esp32-esp8266-screensaver) - 6 classic screensavers for ESP32 with TFT or VGA output
-    - [esp32-esp8266-trex-game](/firmware/test-visual/esp32-esp8266-trex-game) - adaptation of [VolosR/TRexTTGOdisplay](https://github.com/VolosR/TRexTTGOdisplay) repo
-    - [esp32-esp8266-weather-station](/firmware/test-visual/esp32-esp8266-weather-station) - adaptation of [VolosR/TTGOWeatherStation](https://github.com/VolosR/TTGOWeatherStation) repo
-    - [esp32-esp8266-weather-station-color](/firmware/test-visual/esp32-esp8266-weather-station-color) - adaptation of [ThingPulse/esp8266-weather-station-color](https://github.com/ThingPulse/esp8266-weather-station-color) repo
-    - [esp32-esp8266-wifi-meaters](/firmware/test-visual/esp32-esp8266-wifi-meaters) - adaptation of [davidchatting/ThreeWiFiMeters](https://github.com/davidchatting/ThreeWiFiMeters) repo
-    - [esp32-spotify-screen](/firmware/test-visual/esp32-spotify-screen) - adaptation of [CosmicMac/M5Spot](https://github.com/CosmicMac/M5Spot) repo
     - [esp32-test-lvgl](/firmware/test-visual/esp32-test-lvgl) - LVGL usage example
-- [third-party-forks](/firmware/third-party-forks)
-    - [esp32-cspot](/firmware/third-party-forks/esp32-cspot) - adaptation of [feelfreelinux/cspot](https://github.com/feelfreelinux/cspot) repo
-    - [ESP32-MiniWebRadio](/firmware/third-party-forks/ESP32-MiniWebRadio) - adaptation of [schreibfaul1/ESP32-MiniWebRadio](https://github.com/schreibfaul1/ESP32-MiniWebRadio) repo
-    - [esp32-mp3-decoder](/firmware/third-party-forks/esp32-mp3-decoder) - adaptation of [MrBuddyCasino/ESP32_MP3_Decoder](https://github.com/MrBuddyCasino/ESP32_MP3_Decoder) repo
-    - [Ka-Radio32](/firmware/third-party-forks/Ka-Radio32) - adaptation of [karawin/Ka-Radio32](https://github.com/karawin/Ka-Radio32) repo
+
+## Third-party repositories that run on Loud-ESP
+
+### Audio projects
+
+- [squeezelite-esp32](https://github.com/sle118/squeezelite-esp32) - LMS, Airplay, Spotify-Connect
+  - can be installed via [dedicated web-installer](https://sonocotta.github.io/esp32-audio-dock/)
+- [Ka-Radio32](https://github.com/karawin/Ka-Radio32) - Web-Radio player with UI and physical controls
+- [ESP32-MiniWebRadio](https://github.com/schreibfaul1/ESP32-MiniWebRadio) - also Web-Radio player with nice UI
+- [ESP32_MP3_Decoder](https://github.com/MrBuddyCasino/ESP32_MP3_Decoder) - Also Web-Radio player (more basic setup)
+
+### Visual only projects
+
+- [esp32-esp8266-weather-station](https://github.com/anabolyc/esp32-esp8266-weather-station) and [esp32-esp8266-weather-station-color](https://github.com/anabolyc/esp32-esp8266-weather-station-color) - forks of the [ThingPulse](https://github.com/ThingPulse/) projects
+- [esp32-esp8266-screensavers](https://github.com/sonocotta/esp32-esp8266-screensavers) - Classic screensavers on ESP32
 
 ## How to flash
 
